@@ -26,7 +26,7 @@
                   width="180"
                 >
                 <h1 class="flex my-4 primary--text">
-                  HR Attendance System
+                  FAT Utility System
                 </h1>
               </div>
               <v-form>

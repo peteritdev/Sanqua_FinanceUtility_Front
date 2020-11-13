@@ -12,6 +12,7 @@ class AuthService {
       })
       .then(response => {
         if (response.data.status_code) {
+          console.log(JSON.stringify(response.data))
           localStorage.setItem('user', JSON.stringify(response.data))
         }
         return response.data

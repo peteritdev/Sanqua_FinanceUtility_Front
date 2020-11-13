@@ -2,18 +2,25 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import { auth } from './authmodule'
-import { report } from './reportmodule'
+import { vendor } from './vendormodule'
+import { invoice } from './invoicemodule'
 import { user } from './usermodule'
+import { download } from './downloadmodule'
+import { payreq } from './payreqmodule'
+import { company } from './companymodule'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    auth, report, user,
+    auth, vendor, user, download, invoice, payreq, company,
   },
   getters: {
     getLoggedUserInfo () {
       return JSON.parse(localStorage.getItem('user'))
+    },
+    getInfo () {
+      return company.getters.getCompany()
     },
   },
   // From store.js

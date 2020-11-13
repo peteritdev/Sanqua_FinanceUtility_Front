@@ -27,58 +27,40 @@ export default new Router({
         },
         // Pages
         {
-          name: 'Report Daily Attendance',
-          path: 'pages/report/daily_attendance',
-          component: () => import('@/views/dashboard/pages/report/ReportDailyAttendance'),
+          name: 'Vendor',
+          path: 'pages/vendor',
+          component: () => import('@/views/vendor/VendorList'),
         },
         {
-          name: 'Report Access Door',
-          path: 'pages/report/access_door',
-          component: () => import('@/views/dashboard/pages/report/ReportAccessDoor'),
+          name: 'Upload Vendor',
+          path: 'pages/vendor/upload',
+          component: () => import('@/views/vendor/UploadVendorForm'),
         },
         {
-          name: 'Report Attendance Device',
-          path: 'pages/report/attendance_device',
-          component: () => import('@/views/dashboard/pages/report/ReportAttendanceDevice'),
+          name: 'Invoice',
+          path: 'pages/invoice',
+          component: () => import('@/views/invoice/InvoiceList'),
         },
         {
-          name: 'User List',
-          path: 'pages/user/list',
-          component: () => import('@/views/dashboard/pages/user/UserList'),
-        },
-        /* {
-          name: 'Notifications',
-          path: 'components/notifications',
-          component: () => import('@/views/dashboard/component/Notifications'),
+          name: 'Upload Invoice',
+          path: 'pages/invoice/upload',
+          component: () => import('@/views/invoice/UploadInvoiceForm'),
         },
         {
-          name: 'Icons',
-          path: 'components/icons',
-          component: () => import('@/views/dashboard/component/Icons'),
+          name: 'Payment Request Form',
+          path: 'pages/paymentrequest/form',
+          component: () => import('@/views/paymentrequest/PayReqForm'),
         },
         {
-          name: 'Typography',
-          path: 'components/typography',
-          component: () => import('@/views/dashboard/component/Typography'),
+          name: 'Payment Request',
+          path: 'pages/paymentrequest/list',
+          component: () => import('@/views/paymentrequest/PayReqList'),
         },
-        // Tables
         {
-          name: 'Regular Tables',
-          path: 'tables/regular-tables',
-          component: () => import('@/views/dashboard/tables/RegularTables'),
+          name: 'Payment Request Form',
+          path: 'pages/paymentrequest/form/id/:id',
+          component: () => import('@/views/paymentrequest/PayReqForm'),
         },
-        // Maps
-        {
-          name: 'Google Maps',
-          path: 'maps/google-maps',
-          component: () => import('@/views/dashboard/maps/GoogleMaps'),
-        },
-        // Upgrade
-        {
-          name: 'Upgrade',
-          path: 'upgrade',
-          component: () => import('@/views/dashboard/Upgrade'),
-        }, */
       ],
     },
   ],

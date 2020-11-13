@@ -106,61 +106,26 @@
           title: 'dashboard',
           to: '/admin',
         },
+        {
+          title: 'Vendors',
+          icon: 'mdi-account-box-multiple',
+          to: '/admin/pages/vendor',
+        },
+        {
+          title: 'Invoice',
+          icon: 'mdi-file-document',
+          to: '/admin/pages/invoice',
+        },
+        {
+          title: 'Payment Request',
+          icon: 'mdi-file-document',
+          to: '/admin/pages/paymentrequest/list',
+        },
         /* {
-          icon: 'mdi-account',
-          title: 'user',
-          to: '/admin/pages/user',
-        },
-        {
-          title: 'rtables',
-          icon: 'mdi-clipboard-outline',
-          to: '/admin/tables/regular-tables',
-        },
-        {
-          title: 'typography',
-          icon: 'mdi-format-font',
-          to: '/admin/components/typography',
-        },
-        {
-          title: 'icons',
-          icon: 'mdi-chart-bubble',
-          to: '/admin/components/icons',
-        },
-        {
-          title: 'google',
-          icon: 'mdi-map-marker',
-          to: '/admin/maps/google-maps',
-        },
-        {
-          title: 'notifications',
-          icon: 'mdi-bell',
-          to: '/admin/components/notifications',
+          title: 'Upload Vendor',
+          icon: 'mdi-arrow-up-bold',
+          to: '/admin/pages/vendor/upload',
         }, */
-        {
-          title: 'Laporan Absensi',
-          icon: 'mdi-file-chart',
-          to: '/admin/pages/report/daily_attendance',
-        },
-        {
-          title: 'Laporan Akses Pintu',
-          icon: 'mdi-glass-door',
-          to: '/admin/pages/report/access_door',
-        },
-        {
-          title: 'Laporan Mesin Absensi',
-          icon: 'mdi-glass-door',
-          to: '/admin/pages/report/attendance_device',
-        },
-        {
-          title: 'Akses Pengguna',
-          icon: 'mdi-account',
-          to: '/admin/pages/user/list',
-        },
-        {
-          title: 'Logout',
-          icon: 'mdi-arrow-left-thick',
-          to: '/logout',
-        },
       ],
     }),
 
@@ -181,17 +146,13 @@
         return {
           avatar: true,
           // title: this.$t('avatar'),
-          title: 'SanQua Att Sys',
+          title: 'SanQua FAT Util',
         }
       },
     },
 
     created () {
-      const xLocalStorage = JSON.parse(localStorage.getItem('user'))
-      if (xLocalStorage.sanqua_company_id !== 0) {
-        const removeIndex = this.items.map((item) => item.title).indexOf('Akses Pengguna')
-        this.items.splice(removeIndex, 1)
-      }
+      // const xLocalStorage = JSON.parse(localStorage.getItem('user'))
     },
 
     methods: {
