@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-// const API_URL = 'http://10.10.20.8:1189/api/oauth/v1'
-const API_URL = 'http://localhost:1189/api/oauth/v1'
+const API_URL = 'http://10.10.20.8:1189/api/oauth/v1'
+// const API_URL = 'http://localhost:1189/api/oauth/v1'
 
 class AuthService {
   login (user) {

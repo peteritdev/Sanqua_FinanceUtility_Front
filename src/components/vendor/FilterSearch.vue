@@ -15,7 +15,7 @@
       <v-col
         cols="12"
         sm="3"
-        md="1"
+        md="2"
       >
         <v-btn
           color="blue"
@@ -34,7 +34,7 @@
       <v-col
         cols="12"
         sm="3"
-        md="1"
+        md="2"
       >
         <v-btn
           color="green"
@@ -47,6 +47,25 @@
             dark
           >
             mdi-arrow-up-bold
+          </v-icon>
+        </v-btn>
+      </v-col>
+      <v-col
+        cols="12"
+        sm="3"
+        md="1"
+      >
+        <v-btn
+          color="green"
+          class="ma-2 white--text"
+          href="#/admin/pages/vendor/form"
+        >
+          Tambah
+          <v-icon
+            right
+            dark
+          >
+            mdi-file-plus
           </v-icon>
         </v-btn>
       </v-col>

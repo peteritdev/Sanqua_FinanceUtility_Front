@@ -61,6 +61,11 @@ export default new Router({
           path: 'pages/paymentrequest/form/id/:id',
           component: () => import('@/views/paymentrequest/PayReqForm'),
         },
+        {
+          name: 'Vendor Form',
+          path: 'pages/vendor/form',
+          component: () => import('@/views/vendor/SaveVendorForm'),
+        },
       ],
     },
   ],

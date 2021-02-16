@@ -21,7 +21,8 @@
         :server-items-length="totalVendorData"
         :loading="loading"
       >
-        <template v-slot:item.actions="{ item }">
+        <template v-slot:[`item.actions`]="{ item }">
+        <!-- <template v-slot:item.actions="{ item }"> -->
           <!-- v-btn
             color="primary"
             dark
@@ -109,6 +110,12 @@
             value: 'account_name',
             align: 'left',
             sortable: false,
+          },
+          {
+            text: 'Currency',
+            value: 'currency_name',
+            align: 'center',
+            sortable: true,
           },
           {
             text: 'Actions',

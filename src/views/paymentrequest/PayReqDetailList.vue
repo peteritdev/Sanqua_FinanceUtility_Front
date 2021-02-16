@@ -13,7 +13,8 @@
       class="elevation-1 row-pointer"
       @click:row="rowClick"
     >
-      <template v-slot:item.actions="{ item }">
+      <template v-slot:[`item.actions`]="{ item }">
+      <!-- <template v-slot:item.actions="{ item }"> -->
           <!-- v-btn
             color="primary"
             dark

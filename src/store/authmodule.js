@@ -4,6 +4,7 @@ const user = JSON.parse(localStorage.getItem('user'))
 const initialState = user
   ? { status: { loggedIn: true }, user }
   : { status: { loggedIn: false }, user: null }
+  console.log(AuthService)
 
 export const auth = {
   namespaced: true,
