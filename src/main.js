@@ -25,11 +25,15 @@ import VueSimpleAlert from 'vue-simple-alert'
 import JsonExcel from 'vue-json-excel'
 import JsonCSV from 'vue-json-csv'
 
+import VueHtml2pdf from 'vue-html2pdf'
+
 Vue.config.productionTip = false
 
 Vue.use(VueSimpleAlert)
 Vue.component('downloadExcel', JsonExcel)
 Vue.component('downloadCsv', JsonCSV)
+
+Vue.use(VueHtml2pdf)
 
 new Vue({
   router,

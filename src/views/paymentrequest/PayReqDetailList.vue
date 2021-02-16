@@ -4,42 +4,16 @@
     fluid
     tag="section"
   >
-    <base-material-card
-      icon="mdi-clipboard-text"
-      title="Payment Request"
-      class="px-5 py-3"
+    <v-data-table
+      :headers="headers"
+      :items="payReqDetailData"
+      :options.sync="options"
+      :server-items-length="totalPayReqDetailData"
+      :loading="loading"
+      class="elevation-1 row-pointer"
+      @click:row="rowClick"
     >
-      <v-row>
-        <v-col
-          cols="12"
-          sm="3"
-          md="1"
-        >
-          <v-btn
-            color="green"
-            class="ma-2 white--text"
-            href="#/admin/pages/paymentrequest/form"
-          >
-            Tambah
-            <v-icon
-              right
-              dark
-            >
-              mdi-file-plus
-            </v-icon>
-          </v-btn>
-        </v-col>
-      </v-row>
-      <v-data-table
-        :headers="headers"
-        :items="payReqData"
-        :options.sync="options"
-        :server-items-length="totalPayReqData"
-        :loading="loading"
-        class="elevation-1 row-pointer"
-        @click:row="rowClick"
-      >
-        <template v-slot:item.actions="{ item }">
+      <template v-slot:item.actions="{ item }">
           <!-- v-btn
             color="primary"
             dark
@@ -50,18 +24,23 @@
             </v-icon>
           </v-btn-->
           &nbsp;
-          <v-btn
-            color="red"
-            dark
-            @click.stop="showModalConfirmDelete(item)"
-          >
-            <v-icon small>
-              mdi-delete
-            </v-icon>
-          </v-btn>
-        </template>
-      </v-data-table>
-    </base-material-card>
+        <v-btn
+          color="red"
+          dark
+          @click.stop="showModalConfirmDelete(item)"
+        >
+          <v-icon small>
+            mdi-delete
+          </v-icon>
+        </v-btn>
+      </template>
+    </v-data-table><br>
+    <pay-req-detail-form
+      ref="payReqDetailForm"
+      v-model="showForm"
+      :header-id="payReqHeaderId"
+      @showMsgDialog="showMsgDialog"
+    />
   </v-container>
 </template>
 
@@ -70,14 +49,15 @@
   // import FilterAccessDoorLog from '@/components/base/FilterSearchAccessDoorLog'
 
   export default {
-    components: {},
-    props: {
-      value: Boolean,
+    components: {
+      PayReqDetailForm: () => import('@/components/payreq/PayReqDetailForm'),
     },
+    props: ['payReqHeaderId'],
     data () {
       return {
 
         paramAPI: {
+          header_id: null,
           keyword: '',
           offset: 0,
           limit: 0,
@@ -85,71 +65,65 @@
           order_type: [],
 
         },
-        payReqData: [],
+        payReqDetailData: [],
         headers: [
           {
-            text: 'No.',
-            value: 'payreq_no',
+            text: 'Invoice No.',
+            value: 'invoice.invoice_no',
             align: 'left',
             sortable: true,
           },
           {
-            text: 'Nama PT',
-            value: 'company_name',
+            text: 'Tgl. Invoice',
+            value: 'invoice.invoice_date',
             align: 'left',
             sortable: true,
           },
           {
-            text: 'Date',
-            value: 'date',
+            text: 'Tgl. Terima Faktur',
+            value: 'invoice.receive_invoice_date',
             align: 'left',
             sortable: true,
           },
           {
-            text: 'Vendor',
-            value: 'vendor_name',
+            text: 'Tgl. Jatuh Tempo',
+            value: 'invoice.invoice_due_date',
+            align: 'left',
+            sortable: true,
+          },
+          {
+            text: 'Nilai Faktur',
+            value: 'invoice.total_after_tax',
             align: 'right',
             sortable: true,
           },
           {
-            text: 'Pemohon',
-            value: 'requester_name',
+            text: 'Potongan',
+            value: 'invoice.deduction',
             align: 'right',
             sortable: true,
           },
           {
-            text: 'Dept.',
-            value: 'department_name',
+            text: 'Hutang',
+            value: 'invoice.debt_value',
+            align: 'right',
+            sortable: true,
+          },
+          {
+            text: 'Actions',
+            value: 'actions',
             align: 'center',
-            sortable: true,
-          },
-          {
-            text: 'Total',
-            value: 'total',
-            align: 'right',
-            sortable: true,
+            sortable: false,
           },
         ],
 
-        totalPayReqData: 0,
+        totalPayReqDetailData: 0,
         loading: true,
         options: {},
 
         showForm: false,
 
       }
-    },
-
-    computed: {
-      dialog: {
-        get () {
-          return this.value
-        },
-
-        set (value) {
-          this.$emit('input', value)
-        },
-      },
     },
 
     watch: {
@@ -162,16 +136,17 @@
     },
 
     mounted () {
-      this.submitSearch('', 'default')
+    //   this.submitSearch('', 'default')
     },
 
     created () {
-
+    //   alert('Detail List : ' + this.payReqHeaderId)
     },
 
     methods: {
       submitSearch (pKeyword, pTrigerBy) {
         this.loading = true
+        this.paramAPI.header_id = this.payReqHeaderId
 
         if (pTrigerBy === 'search_button') {
           this.paramAPI.keyword = pKeyword
@@ -180,11 +155,11 @@
         this.paramAPI.limit = this.options.itemsPerPage
         this.paramAPI.order_by = (this.options.sortBy.length === 0 ? '' : this.options.sortBy[0])
         this.paramAPI.order_type = (this.options.sortDesc.length === 0 ? 'desc' : (this.options.sortDesc[0] === true ? 'desc' : 'asc'))
-        this.$store.dispatch('payreq/getPayReqHeader', this.paramAPI).then(
+        this.$store.dispatch('payreq/getPayReqDetail', this.paramAPI).then(
           data => {
             console.log(JSON.stringify(data.data))
-            this.payReqData = data.data
-            this.totalPayReqData = data.total_record
+            this.payReqDetailData = data.data
+            this.totalPayReqDetailData = data.total_record
           },
           error => {
             // alert('Failed')
@@ -202,7 +177,8 @@
           timer: 3000,
         }).then(r => {
         })
-        this.submitSearch('')
+        this.submitSearch('', 'table')
+        this.$emit('getPayReqHeaderById', this.payReqHeaderId)
       },
 
       /* showImportDialog () {
@@ -224,10 +200,12 @@
               id: pValue.id,
             }
 
-            this.$store.dispatch('invoice/deleteInvoice', paramAPIDelete)
+            this.$store.dispatch('payreq/deletePayReqDetail', paramAPIDelete)
               .then(
                 data => {
                   this.showMsgDialog('success', data.status_msg)
+                  this.submitSearch('', 'table')
+                  this.$emit('getPayReqHeaderById', this.payReqHeaderId)
                 },
                 error => {
                   console.log('Error delete:' + error)

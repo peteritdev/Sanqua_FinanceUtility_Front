@@ -65,7 +65,7 @@
     },
     methods: {
       submitSearch () {
-        this.$emit('submitSearch', this.keyword)
+        this.$emit('submitSearch', this.keyword, 'search_button')
       },
 
     },

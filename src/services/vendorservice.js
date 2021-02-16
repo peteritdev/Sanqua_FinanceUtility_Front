@@ -5,18 +5,18 @@ const API_URL = 'http://localhost:6189/api/sanqua_fautility/v1'
 
 class VendorService {
     getVendorList (pParam) {
-        var xQueryStr = `?keyword=${pParam.keyword}`
+        var xStrQuery = `?keyword=${pParam.keyword}&offset=${pParam.offset}&limit=${pParam.limit}&order_by=${pParam.order_by}&order_type=${pParam.order_type}`
         return axios
-            .get(API_URL + '/master/vendor/list' + xQueryStr, {
+            .get(API_URL + '/master/vendor/list' + xStrQuery, {
                 headers: authHeader(),
             })
             .then(response => {
-                return response.data.data
+                return response.data
             })
     }
 
     getVendorDropDownList (pParam) {
-        var xQueryStr = `?keyword=${pParam.keyword}`
+        var xQueryStr = `?keyword=${pParam.keyword}&offset=0&limit=100&order_type=&order_by=`
         return axios
             .get(API_URL + '/master/vendor/list_dropdown' + xQueryStr, {
                 headers: authHeader(),

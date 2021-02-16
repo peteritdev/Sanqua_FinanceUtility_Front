@@ -9,23 +9,54 @@
       title="Payment Request Form"
       class="px-5 py-3"
     >
-      <v-row>
-        <v-col
-          cols="12"
-          sm="1"
-          md="6"
-        >
-          <div class="font-weight-medium text-h1">
-            {{ payReqNo }}
-          </div>
-        </v-col>
-      </v-row>
-      <v-divider />
       <v-form
         ref="headerForm"
         v-model="valid"
         @submit.prevent="onSubmitHeader"
       >
+        <v-row>
+          <v-col
+            cols="12"
+            sm="1"
+            md="12"
+          >
+            <v-card-actions>
+              <v-spacer />
+              <v-btn
+                type="submit"
+                color="blue darken-1"
+                class="ma-2"
+                :loading="loading"
+                :disabled="loading"
+              >
+                Simpan
+              </v-btn>
+              <v-btn
+                type="button"
+                color="green darken-1"
+                class="ma-2"
+                :loading="loadingExportPDF"
+                :disabled="loadingExportPDF"
+                @click.stop="exportPDF"
+              >
+                Export PDF
+              </v-btn>
+            </v-card-actions>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col
+            cols="12"
+            sm="1"
+            md="6"
+          >
+            <div class="font-weight-medium text-h1">
+              #{{ payReqNo }}
+            </div>
+          </v-col>
+        </v-row>
+        <v-divider />
+
         <v-text-field
           v-show="false"
           v-model="paramAPI.act"
@@ -213,7 +244,7 @@
                 flat
                 hide-no-data
                 hide-details
-                label="Select Vendor"
+                :label="paramAPI.vendor_name"
                 :rules="vendorRule"
                 return-object
               />
@@ -231,18 +262,48 @@
             </v-col>
           </v-row>
         </v-container>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            type="submit"
-            color="blue darken-1"
-            class="ma-2"
-            :loading="loading"
-            :disabled="loading"
+
+        <v-row>
+          <v-col
+            cols="12"
+            sm="1"
+            md="12"
           >
-            Simpan
-          </v-btn>
-        </v-card-actions>
+            <pay-req-detail-list
+              ref="payReqDetailList"
+              :pay-req-header-id="paramAPI.id"
+              @getPayReqHeaderById="getPayReqHeaderById"
+            />
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col
+            cols="12"
+            sm="1"
+            md="8"
+          />
+          <v-col
+            cols="12"
+            sm="4"
+            md="4"
+          >
+            <v-simple-table>
+              <tr>
+                <th>
+                  <div class="font-weight-medium text-h3">
+                    Total
+                  </div>
+                </th>
+                <td>
+                  <div class="text-h3">
+                    {{ totalDebtValue }}
+                  </div>
+                </td>
+              </tr>
+            </v-simple-table>
+          </v-col>
+        </v-row>
       </v-form>
     </base-material-card>
   </v-container>
@@ -251,16 +312,24 @@
 <script>
 
   // import FilterAccessDoorLog from '@/components/base/FilterSearchAccessDoorLog'
+  // import VueHtml2pdf from 'vue-html2pdf'
 
   const _sessionUser = JSON.parse(localStorage.getItem('user'))
 
   export default {
     components: {
+      PayReqDetailList: () => import('@/views/paymentrequest/PayReqDetailList'),
+      // VueHtml2pdf,
+      // PayReqPdf: () => import('@/components/payreq/PayReqPdf'),
     },
     data () {
       return {
 
+        requesterName: '',
+
+        payReqHeaderId: '',
         payReqNo: '',
+        totalDebtValue: 0,
 
         paramAPI: {
           act: 'add',
@@ -273,7 +342,7 @@
           position_name: '',
 
           vendor_id: null,
-          vendor_name: '',
+          vendor_name: 'Please Select Vendor',
 
           date: new Date().toISOString().substr(0, 10),
           payment_method: '', // 'cash',
@@ -393,11 +462,12 @@
 
         loading: false,
         loadingAutocomplete: false,
+        loadingExportPDF: false,
 
         // Rules
         valid: false,
         vendorRule: [
-          v => v.id !== '' || 'Vendor is required',
+          // v => (v.id !== '' && this.paramAPI.act !== 'update') || 'Vendor is required',
         ],
         paymentMethodRule: [
           v => !!v || 'Jenis Pembayaran is required',
@@ -418,7 +488,7 @@
     },
 
     mounted () {
-
+      this.$refs.html2Pdf.generatePdf()
     },
 
     beforeMount () {},
@@ -434,9 +504,11 @@
         this.paramAPI.requester_id = _sessionUser.employee_id
         this.paramAPI.act = 'add'
       } else {
+        this.payReqHeaderId = this.$route.params.id
         this.paramAPI.id = this.$route.params.id
         this.paramAPI.act = 'update'
         this.getPayReqHeaderById(this.$route.params.id)
+        // this.$refs.payReqDetailList.submitSearch('', 'default')
       }
     },
 
@@ -495,10 +567,15 @@
             self.loading = true
             self.$store.dispatch('payreq/savePayReqHeader', self.paramAPI).then(
               response => {
-                self.resetForm()
+                if (self.paramAPI.act === 'add') {
+                  self.resetForm()
+                  self.$router.push('/admin/pages/paymentrequest/form/id/' + response.encrypted_id)
+                } else {
+                  self.getPayReqHeaderById(self.$route.params.id)
+                }
+
                 self.loading = false
                 self.showMsgDialog('success', response.status_msg)
-                self.$router.push('/admin/pages/paymentrequest/form/id/' + response.encrypted_id)
               },
               error => {
                 self.loading = false
@@ -512,8 +589,12 @@
       getPayReqHeaderById (pId) {
         this.$store.dispatch('payreq/getPayReqHeaderById', { id: pId }).then(
           response => {
+            console.log(JSON.stringify(response))
+            this.payReqNo = response.payreq_no
             this.paramAPI.requester_id = response.requester_id
+
             this.paramAPI.requester_name = response.requester_name
+
             this.paramAPI.department_id = response.department_id
             this.paramAPI.department_name = response.department_name
             this.paramAPI.position_id = response.position_id
@@ -524,10 +605,7 @@
             this.paramAPI.company_id = response.company_id
             this.paramAPI.company_name = response.company_name
             this.companiesSelect = response.company
-            this.paramAPI.payment_method = {
-              id: response.payment_method,
-              name: (response.payment_method).charAt(0).toUpperCase() + (response.payment_method).slice(1),
-            }
+            this.paramAPI.payment_method = response.payment_method
 
             if (response.payment_method !== 'cash') {
               this.isNotCash = true
@@ -539,6 +617,8 @@
             this.paramAPI.note = response.note
             this.paramAPI.type_of_payment_request = response.type_of_payment_request
             this.paramAPI.source_of_fund = response.source_of_fund
+
+            this.totalDebtValue = response.total
           },
         )
       },
@@ -546,6 +626,18 @@
       resetForm () {
         // this.$refs.entryForm.reset()
         this.paramAPI.act = 'add'
+      },
+
+      // generateReport () {
+      //   this.$refs.html2Pdf.generatePdf()
+      // },
+
+      exportPDF () {
+        this.$store.dispatch('payreq/exportToPDF', { id: this.payReqHeaderId }).then(
+          response => {
+            console.log(response)
+          },
+        )
       },
 
     },

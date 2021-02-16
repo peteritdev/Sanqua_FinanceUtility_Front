@@ -14,10 +14,12 @@
       />
       <br><br>
       <v-data-table
-        class="table"
+        class="elevation-1"
         :headers="headers"
         :items="vendors"
-        :rows-per-page-items="[10, 25]"
+        :options.sync="options"
+        :server-items-length="totalVendorData"
+        :loading="loading"
       >
         <template v-slot:item.actions="{ item }">
           <!-- v-btn
@@ -59,6 +61,10 @@
 
         paramAPI: {
           keyword: '',
+          offset: 0,
+          limit: 0,
+          order_by: [],
+          order_type: [],
         },
         vendors: [],
         headers: [
@@ -113,37 +119,49 @@
         ],
         showForm: false,
         vendorData: {},
+        totalVendorData: 0,
+        loading: true,
+        options: {},
       }
     },
 
-    created () {
-      /* this.$store.dispatch('report/getAccessDoorLog', this.paramAPI).then(
-        data => {
-          // console.log(JSON.stringify(data));
-          this.attendances = data
+    watch: {
+      options: {
+        handler () {
+          this.submitSearch('', 'table')
         },
-        error => {
-          console.log('Error View:' + error)
-        },
-      ) */
+      },
+    },
 
-      this.submitSearch('')
+    mounted () {
+      this.submitSearch('', 'default')
     },
 
     methods: {
-      submitSearch (pKeyword) {
-        this.paramAPI.keyword = pKeyword
+      submitSearch (pKeyword, pTrigerBy) {
+        this.loading = true
+
+        if (pTrigerBy === 'search_button') {
+          this.paramAPI.keyword = pKeyword
+        }
+
+        this.paramAPI.offset = (this.options.page === 1 ? this.options.page - 1 : (((this.options.page - 1) + this.options.itemsPerPage) - 1))
+        this.paramAPI.limit = this.options.itemsPerPage
+        this.paramAPI.order_by = (this.options.sortBy.length === 0 ? '' : this.options.sortBy[0])
+        this.paramAPI.order_type = (this.options.sortDesc.length === 0 ? 'desc' : (this.options.sortDesc[0] === true ? 'desc' : 'asc'))
+
         this.$store.dispatch('vendor/getVendorList', this.paramAPI).then(
           data => {
-            // alert('Success')
             console.log(JSON.stringify(data))
-            this.vendors = data
+            this.vendors = data.data
+            this.totalVendorData = data.total_record
           },
           error => {
             // alert('Failed')
             console.log('Error View:' + error)
           },
         )
+        this.loading = false
       },
 
       showMsgDialog (pModalType, pStatusMsg) {
