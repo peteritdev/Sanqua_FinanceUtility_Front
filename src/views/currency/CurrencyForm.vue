@@ -6,7 +6,7 @@
   >
     <base-material-card
       icon="mdi-clipboard-text"
-      title="Vendor Form"
+      title="Currency Form"
       class="px-5 py-3"
     >
       <v-form
@@ -57,13 +57,13 @@
             <v-col
               cols="12"
               sm="1"
-              md="6"
+              md="5"
             >
               <v-text-field
-                v-model="paramAPI.name"
+                v-model="paramAPI.symbol"
                 clearable
-                :rules="vendorRule"
-                label="Nama Vendor"
+                :rules="symbolRule"
+                label="Symbol"
               />
             </v-col>
             <v-col
@@ -74,118 +74,12 @@
             <v-col
               cols="12"
               sm="1"
-              md="2"
+              md="5"
             >
               <v-text-field
-                v-model="paramAPI.Code"
+                v-model="paramAPI.code"
                 clearable
                 label="Code"
-              />
-            </v-col>
-            <v-col
-              cols="12"
-              sm="1"
-              md="2"
-            >
-              <v-text-field
-                v-model="paramAPI.interval_due_date"
-                clearable
-                :rules="dueDateRule"
-                label="Interval Due Date"
-              />
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col
-              cols="12"
-              sm="1"
-              md="6"
-            >
-              <v-text-field
-                v-model="paramAPI.account_number"
-                clearable
-                :rules="accountNumRule"
-                label="Nomor Rekening"
-              />
-            </v-col>
-            <v-col
-              cols="12"
-              sm="1"
-              md="2"
-            />
-            <v-col
-              cols="12"
-              sm="1"
-              md="2"
-            >
-            <v-select
-                v-model="paramAPI.payment_method"
-                :items="paymentMethods"
-                item-text="name"
-                item-value="id"
-                label="Metode Pembayaran"
-                persistent-hint
-                :rules="paymentMethodRule"
-                clearable
-              />
-            </v-col>
-            <v-col
-              cols="12"
-              sm="1"
-              md="2"
-            >
-            <v-text-field
-              v-model="paramAPI.bank_name"
-              clearable
-              :rules="bankRule"
-              label="Bank"
-            />
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col
-              cols="12"
-              sm="1"
-              md="6"
-            >
-              <v-text-field
-                v-model="paramAPI.account_name"
-                clearable
-                :rules="accountNameRule"
-                label="Atas Nama"
-              />
-            </v-col>
-            <v-col
-              cols="12"
-              sm="1"
-              md="2"
-            />
-            <v-col
-              cols="12"
-              sm="1"
-              md="2"
-            />
-            <v-col
-              cols="12"
-              sm="1"
-              md="2"
-            >
-            <v-autocomplete
-                v-model="paramAPI.currency_id"
-                :loading="loadingAutocomplete"
-                :items="currencyDropdown"
-                :search-input.sync="searchCurrency"
-                item-text="name"
-                item-value="id"
-                cache-items
-                class="mx-1"
-                flat
-                hide-no-data
-                hide-details
-                label="Currency"
-                :rules="currencyRule"
-                return-object
-                clearable
               />
             </v-col>
           </v-row>

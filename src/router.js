@@ -32,6 +32,11 @@ export default new Router({
           component: () => import('@/views/vendor/VendorList'),
         },
         {
+          name: 'Vendor Form',
+          path: 'pages/vendor/form',
+          component: () => import('@/views/vendor/SaveVendorForm'),
+        },
+        {
           name: 'Upload Vendor',
           path: 'pages/vendor/upload',
           component: () => import('@/views/vendor/UploadVendorForm'),
@@ -62,9 +67,14 @@ export default new Router({
           component: () => import('@/views/paymentrequest/PayReqForm'),
         },
         {
-          name: 'Vendor Form',
-          path: 'pages/vendor/form',
-          component: () => import('@/views/vendor/SaveVendorForm'),
+          name: 'Currency',
+          path: 'pages/currency',
+          component: () => import('@/views/currency/CurrencyList'),
+        },
+        {
+          name: 'Currency Form',
+          path: 'pages/currency/form',
+          component: () => import('@/views/currency/CurrencyForm'),
         },
       ],
     },
