@@ -5,6 +5,8 @@ export const vendor = {
     state: {
         vendors: [],
         response: [],
+        act: 'add',
+        detail: {},
     },
 
     actions: {
@@ -33,7 +35,8 @@ export const vendor = {
         },
 
         saveVendor ({ commit }, pParam) {
-            return VendorService.saveVendor(pParam).then(
+            return VendorService.saveVendor(pParam)
+            .then(
                 _response => {
                     commit('saveVendor', _response)
                     return Promise.resolve(_response)
@@ -85,6 +88,15 @@ export const vendor = {
 
         batchSaveVendor (state, data) {
             state.response = data
+        },
+
+        actFormVendor (state, data) {
+            state.act = data
+        },
+
+        detailVendor (state, data) {
+            console.log(data)
+            state.detail = data
         },
     },
 }

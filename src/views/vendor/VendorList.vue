@@ -14,12 +14,13 @@
       />
       <br><br>
       <v-data-table
-        class="elevation-1"
+        class="elevation-1 row-pointer"
         :headers="headers"
         :items="vendors"
         :options.sync="options"
         :server-items-length="totalVendorData"
         :loading="loading"
+        @click:row="rowClick"
       >
         <template v-slot:[`item.actions`]="{ item }">
         <!-- <template v-slot:item.actions="{ item }"> -->
@@ -216,9 +217,14 @@
           })
       },
 
-      editItem (value) {
-        value.act = 'update'
-        this.vendorData = value
+      // editItem (value) {
+      //   value.act = 'update'
+      //   this.vendorData = value
+      // },
+      rowClick (pItem) {
+        this.$store.commit('vendor/actFormVendor', 'update')
+        this.$store.commit('vendor/detailVendor', pItem)
+        this.$router.push('/admin/pages/vendor/form/id/' + pItem.id)
       },
 
     },

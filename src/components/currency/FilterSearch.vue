@@ -9,7 +9,6 @@
         <v-text-field
           v-model="keyword"
           label="Keyword Search..."
-          v-bind="attrs"
         />
       </v-col>
       <v-col

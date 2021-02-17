@@ -37,6 +37,11 @@ export default new Router({
           component: () => import('@/views/vendor/SaveVendorForm'),
         },
         {
+          name: 'Vendor Form',
+          path: 'pages/vendor/form/id/:id',
+          component: () => import('@/views/vendor/SaveVendorForm'),
+        },
+        {
           name: 'Upload Vendor',
           path: 'pages/vendor/upload',
           component: () => import('@/views/vendor/UploadVendorForm'),

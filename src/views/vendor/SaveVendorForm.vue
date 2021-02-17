@@ -77,7 +77,7 @@
               md="2"
             >
               <v-text-field
-                v-model="paramAPI.Code"
+                v-model="paramAPI.code"
                 clearable
                 label="Code"
               />
@@ -197,16 +197,16 @@
 
 <script>
   // const _sessionUser = JSON.parse(localStorage.getItem('user'))
-
   export default {
     components: {
     },
+    props: ['formAct'],
     data () {
       return {
 
         paramAPI: {
-          act: 'add',
-          id: null,
+          act: '',
+          // id: null,
           name: '',
           code: '',
           interval_due_date: '',
@@ -215,7 +215,7 @@
           bank_name: '',
           account_number: '',
           account_name: '',
-          currency_id: null,
+          currency_id: 1,
         },
 
         // Currency
@@ -279,7 +279,22 @@
 
     beforeMount () {},
 
-    created () {},
+    created () {
+      if (this.$route.params.id) {
+        this.paramAPI = {
+          act: '',
+          name: this.$store.state.vendor.detail.name,
+          code: this.$store.state.vendor.detail.code,
+          interval_due_date: this.$store.state.vendor.detail.interval_due_date,
+          status: this.$store.state.vendor.detail.status,
+          payment_method: this.$store.state.vendor.detail.payment_method,
+          bank_name: this.$store.state.vendor.detail.bank_name,
+          account_number: this.$store.state.vendor.detail.account_number,
+          account_name: this.$store.state.vendor.detail.account_name,
+          currency_id: 1,
+        }
+      }
+    },
 
     methods: {
 
@@ -293,11 +308,37 @@
         })
       },
       onSubmitHeader () {
-        this.showMsgDialog('success', 'vendor has been created')
+        this.paramAPI.act = this.$store.state.vendor.act
+        if (this.paramAPI.act === 'update') {
+          Object.assign(this.paramAPI, { id: this.$route.params.id })
+        }
+        this.$store.dispatch('vendor/saveVendor', this.paramAPI)
+          .then(
+            data => {
+              this.showMsgDialog('success', data.status_msg)
+              this.resetForm()
+              this.$router.push('/admin/pages/vendor')
+            },
+            error => {
+              console.log(error)
+            },
+          )
       },
 
       resetForm () {
-        this.paramAPI.act = 'add'
+        this.$store.commit('vendor/actFormVendor', 'add')
+        this.paramAPI = {
+          act: '',
+          name: '',
+          code: '',
+          interval_due_date: '',
+          status: 1,
+          payment_method: '',
+          bank_name: '',
+          account_number: '',
+          account_name: '',
+          currency_id: 1,
+        }
       },
     },
   }

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import ApiService from './apiService'
 
-const API_URL = ApiService.local('oauth')
+const API_URL = ApiService.nootebook('oauth')
 // const API_URL = 'http://10.10.20.8:1189/api/oauth/v1'
 // const API_URL = 'http://localhost:1189/api/oauth/v1'
 
@@ -13,6 +13,7 @@ class AuthService {
         password: user.password,
       })
       .then(response => {
+        console.log(response)
         if (response.data.status_code) {
           console.log(JSON.stringify(response.data))
           localStorage.setItem('user', JSON.stringify(response.data))

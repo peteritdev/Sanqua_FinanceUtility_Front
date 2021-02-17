@@ -33,18 +33,35 @@ class ApiService {
       }
   }
 
-  private (access) {
+  // private (access) {
+  //     switch (access) {
+  //         case 'oauth':
+  //           return 'http://10.10.16.10:1189/api/oauth/v1'
+  //         case 'dev':
+  //           return 'http://10.10.16.10:1191/api/procurement/v1/'
+  //         case 'upload':
+  //           return 'http://10.10.16.10:1192/api/procurement/v1'
+  //         case 'hr':
+  //           return 'http://10.10.16.10:2189/api/hr/v1'
+  //         case 'fautility':
+  //           return 'http://10.10.16.10:6189/api/sanqua_fautility/v1'
+  //         default:
+  //           return 'http://localhost:1189/api/oauth/v1'
+  //     }
+  // }
+
+  nootebook (access) {
       switch (access) {
           case 'oauth':
-            return 'http://10.10.16.10:1189/api/oauth/v1'
+            return 'http://10.10.16.40:1189/api/oauth/v1'
           case 'dev':
-            return 'http://10.10.16.10:1191/api/procurement/v1/'
+            return 'http://10.10.16.40:1191/api/procurement/v1/'
           case 'upload':
-            return 'http://10.10.16.10:1192/api/procurement/v1'
+            return 'http://10.10.16.40:1192/api/procurement/v1'
           case 'hr':
-            return 'http://10.10.16.10:2189/api/hr/v1'
+            return 'http://10.10.16.40:2189/api/hr/v1'
           case 'fautility':
-            return 'http://10.10.16.10:6189/api/sanqua_fautility/v1'
+            return 'http://10.10.16.40:6189/api/sanqua_fautility/v1'
           default:
             return 'http://localhost:1189/api/oauth/v1'
       }

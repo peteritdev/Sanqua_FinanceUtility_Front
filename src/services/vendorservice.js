@@ -2,12 +2,12 @@ import axios from 'axios'
 import authHeader from './authheader'
 import ApiService from './apiService'
 
-const API_URL = ApiService.local('fautility')
+const API_URL = ApiService.nootebook('fautility')
 // const API_URL = 'http://localhost:6189/api/sanqua_fautility/v1'
 
 class VendorService {
     getVendorList (pParam) {
-        var xStrQuery = `?keyword=${pParam.keyword}&offset=${pParam.offset}&limit=${pParam.limit}&order_by=${pParam.order_by}&order_type=${pParam.order_type}`
+        var xStrQuery = `?keyword=${pParam.keyword}&offset=${pParam.offset}&limit=${pParam.limit}&order_type=${pParam.order_type}`
         return axios
             .get(API_URL + '/master/vendor/list' + xStrQuery, {
                 headers: authHeader(),
@@ -29,6 +29,7 @@ class VendorService {
     }
 
     saveVendor (pParam) {
+        console.log(pParam)
         return axios
             .post(API_URL + '/master/vendor/single_save', pParam, {
                 headers: authHeader(),

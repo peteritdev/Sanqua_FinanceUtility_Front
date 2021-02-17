@@ -9,7 +9,6 @@
         <v-text-field
           v-model="keyword"
           label="Keyword Search..."
-          v-bind="attrs"
         />
       </v-col>
       <v-col
@@ -59,6 +58,7 @@
           color="green"
           class="ma-2 white--text"
           href="#/admin/pages/vendor/form"
+          @click="setVendorFormAct"
         >
           Tambah
           <v-icon
@@ -85,6 +85,9 @@
     methods: {
       submitSearch () {
         this.$emit('submitSearch', this.keyword, 'search_button')
+      },
+      setVendorFormAct () {
+        this.$store.commit('vendor/actFormVendor', 'add')
       },
 
     },
