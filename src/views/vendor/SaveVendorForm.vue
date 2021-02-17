@@ -41,7 +41,7 @@
             md="6"
           >
             <div class="font-weight-medium text-h1">
-              #{{paramAPI.name}}
+              #{{ paramAPI.name }}
             </div>
           </v-col>
         </v-row>
@@ -118,7 +118,7 @@
               sm="1"
               md="2"
             >
-            <v-select
+              <v-select
                 v-model="paramAPI.payment_method"
                 :items="paymentMethods"
                 item-text="name"
@@ -134,12 +134,12 @@
               sm="1"
               md="2"
             >
-            <v-text-field
-              v-model="paramAPI.bank_name"
-              clearable
-              :rules="bankRule"
-              label="Bank"
-            />
+              <v-text-field
+                v-model="paramAPI.bank_name"
+                clearable
+                :rules="bankRule"
+                label="Bank"
+              />
             </v-col>
           </v-row>
           <v-row>
@@ -170,7 +170,7 @@
               sm="1"
               md="2"
             >
-            <v-autocomplete
+              <v-autocomplete
                 v-model="paramAPI.currency_id"
                 :loading="loadingAutocomplete"
                 :items="currencyDropdown"

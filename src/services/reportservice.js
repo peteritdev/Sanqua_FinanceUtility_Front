@@ -1,9 +1,11 @@
 import axios from 'axios'
 import authHeader from './authheader'
+import ApiService from './apiService'
 // import moment from 'moment'
 
+const API_URL = ApiService.local('hr')
 // const API_URL = 'http://10.10.20.8:2189/api/hr/v1'
-const API_URL = 'http://localhost:2189/api/hr/v1'
+// const API_URL = 'http://localhost:2189/api/hr/v1'
 // const user = JSON.parse(localStorage.getItem('user'))
 
 class ReportService {

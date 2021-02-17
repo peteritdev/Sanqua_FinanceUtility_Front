@@ -1,7 +1,9 @@
 import axios from 'axios'
+import ApiService from './apiService'
 // import authHeader from './authheader'
 
-const API_URL = 'http://localhost:6189/api/sanqua_fautility/v1/download'
+const API_URL = ApiService.local('fautility') + '/download'
+// const API_URL = 'http://localhost:6189/api/sanqua_fautility/v1/download'
 
 class DownloadService {
     getTemplate (pParam) {

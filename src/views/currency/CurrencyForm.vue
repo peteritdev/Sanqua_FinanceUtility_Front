@@ -41,7 +41,7 @@
             md="6"
           >
             <div class="font-weight-medium text-h1">
-              #{{paramAPI.name}}
+              #{{ paramAPI.name }}
             </div>
           </v-col>
         </v-row>
@@ -79,6 +79,7 @@
               <v-text-field
                 v-model="paramAPI.code"
                 clearable
+                :rules="codeRule"
                 label="Code"
               />
             </v-col>
@@ -101,15 +102,8 @@
         paramAPI: {
           act: 'add',
           id: null,
-          name: '',
           code: '',
-          interval_due_date: '',
-          status: 1,
-          payment_method: '',
-          bank_name: '',
-          account_number: '',
-          account_name: '',
-          currency_id: null,
+          symbol: '',
         },
 
         // Currency
@@ -141,26 +135,11 @@
 
         // Rules
         valid: false,
-        vendorRule: [
-          v => !!v || 'Nama vendor is required',
+        codeRule: [
+          v => !!v || 'Code is required',
         ],
-        dueDateRule: [
-          v => !!v || 'Interval due date is required',
-        ],
-        accountNumRule: [
-          v => !!v || 'Nomor rekening is required',
-        ],
-        accountNameRule: [
-          v => !!v || 'Atas nama is required',
-        ],
-        paymentMethodRule: [
-          v => !!v || 'Metode pembayaran is required',
-        ],
-        bankRule: [
-          v => !!v || 'Bank is required',
-        ],
-        currencyRule: [
-          v => !!v || 'Currency is required',
+        symbolRule: [
+          v => !!v || 'Symbol is required',
         ],
       }
     },

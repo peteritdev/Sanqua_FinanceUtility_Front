@@ -1,12 +1,14 @@
 import axios from 'axios'
 import authHeader from './authheader'
+import ApiService from './apiService'
 // import moment from 'moment'
 
 // Prod
 // const API_URL = 'http://10.10.20.8:1189/api/oauth/v1'
+const API_URL = ApiService.local('oauth')
 
 // Localhost
-const API_URL = 'http://localhost:1189/api/oauth/v1'
+// const API_URL = 'http://localhost:1189/api/oauth/v1'
 
 class UserService {
     userList (pParam) {

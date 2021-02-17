@@ -121,6 +121,11 @@
           icon: 'mdi-file-document',
           to: '/admin/pages/paymentrequest/list',
         },
+        {
+          title: 'Currency',
+          icon: 'mdi-currency-usd',
+          to: '/admin/pages/currency',
+        },
         /* {
           title: 'Upload Vendor',
           icon: 'mdi-arrow-up-bold',
