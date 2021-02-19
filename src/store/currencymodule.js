@@ -25,7 +25,7 @@ export const currency = {
         getCurrencyDropDown ({ commit }, pParam) {
             return CurrencyService.getCurrencyDropDownList(pParam).then(
                 _response => {
-                    commit('getCurrencyList', _response)
+                    commit('getCurrenciesDropDown', _response)
                     return Promise.resolve(_response)
                 },
                 _error => {
@@ -63,6 +63,10 @@ export const currency = {
 
     mutations: {
         getCurrencyList (state, data) {
+            state.currencies = data
+        },
+
+        getCurrenciesDropDown (state, data) {
             state.currencies = data
         },
 

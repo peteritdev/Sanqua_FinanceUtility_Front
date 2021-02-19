@@ -33,22 +33,22 @@ class ApiService {
       }
   }
 
-  // private (access) {
-  //     switch (access) {
-  //         case 'oauth':
-  //           return 'http://10.10.16.10:1189/api/oauth/v1'
-  //         case 'dev':
-  //           return 'http://10.10.16.10:1191/api/procurement/v1/'
-  //         case 'upload':
-  //           return 'http://10.10.16.10:1192/api/procurement/v1'
-  //         case 'hr':
-  //           return 'http://10.10.16.10:2189/api/hr/v1'
-  //         case 'fautility':
-  //           return 'http://10.10.16.10:6189/api/sanqua_fautility/v1'
-  //         default:
-  //           return 'http://localhost:1189/api/oauth/v1'
-  //     }
-  // }
+  private (access) {
+      switch (access) {
+          case 'oauth':
+            return 'http://192.168.6.229:1189/api/oauth/v1'
+          case 'dev':
+            return 'http://192.168.6.229:1191/api/procurement/v1/'
+          case 'upload':
+            return 'http://192.168.6.229:1192/api/procurement/v1'
+          case 'hr':
+            return 'http://192.168.6.229:2189/api/hr/v1'
+          case 'fautility':
+            return 'http://192.168.6.229:6189/api/sanqua_fautility/v1'
+          default:
+            return 'http://localhost:1189/api/oauth/v1'
+      }
+  }
 
   nootebook (access) {
       switch (access) {

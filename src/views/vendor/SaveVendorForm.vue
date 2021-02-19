@@ -175,7 +175,7 @@
                 :loading="loadingAutocomplete"
                 :items="currencyDropdown"
                 :search-input.sync="searchCurrency"
-                item-text="name"
+                item-text="code"
                 item-value="id"
                 cache-items
                 class="mx-1"
@@ -184,7 +184,7 @@
                 hide-details
                 label="Currency"
                 :rules="currencyRule"
-                return-object
+                return-id
                 clearable
               />
             </v-col>
@@ -214,7 +214,7 @@
           bank_name: '',
           account_number: '',
           account_name: '',
-          currency_id: 1,
+          currency_id: 8,
         },
 
         // Currency
@@ -279,6 +279,7 @@
     beforeMount () {},
 
     created () {
+      this.getCurrencyDropDown()
       if (this.$route.params.id) {
         this.paramAPI = {
           act: '',
@@ -286,11 +287,11 @@
           code: this.$store.state.vendor.detail.code,
           interval_due_date: this.$store.state.vendor.detail.interval_due_date,
           status: this.$store.state.vendor.detail.status,
-          payment_method: this.$store.state.vendor.detail.payment_method,
+          payment_method: this.$store.state.vendor.detail.payment_method.toLowerCase(),
           bank_name: this.$store.state.vendor.detail.bank_name,
           account_number: this.$store.state.vendor.detail.account_number,
           account_name: this.$store.state.vendor.detail.account_name,
-          currency_id: 1,
+          currency_id: 8,
         }
       }
     },
@@ -322,6 +323,14 @@
               console.log(error)
             },
           )
+      },
+      getCurrencyDropDown () {
+        this.$store.dispatch('currency/getCurrencyDropDown', { keyword: '' }).then(
+          response => {
+            console.log(response)
+            this.currencyDropdown = response
+          },
+        )
       },
 
       resetForm () {

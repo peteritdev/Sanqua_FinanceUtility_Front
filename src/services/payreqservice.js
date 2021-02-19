@@ -2,7 +2,7 @@ import axios from 'axios'
 import authHeader from './authheader'
 import ApiService from './apiService'
 
-const API_URL = ApiService.nootebook('fautility')
+const API_URL = ApiService.private('fautility')
 // const API_URL = 'http://localhost:6189/api/sanqua_fautility/v1'
 
 class PayReqService {
@@ -72,13 +72,32 @@ class PayReqService {
             })
     }
 
+    // exportToPDF (pParam) {
+    //     console.log('ID : ' + pParam.id)
+    //     return axios
+    //         .get(API_URL + '/payreq/exportToPDF/' + pParam.id, {
+    //             headers: authHeader(),
+    //         })
+    //         .then(response => {
+    //             return response.data
+    //         })
+    // }
     exportToPDF (pParam) {
         console.log('ID : ' + pParam.id)
-        return axios
-            .get(API_URL + '/payreq/exportToPDF/' + pParam.id, {
-                headers: authHeader(),
-            })
+        return axios({
+            url: API_URL + '/payreq/exportToPDF/' + pParam.id,
+            method: 'GET',
+            headers: authHeader(),
+            responseType: 'blob',
+          })
             .then(response => {
+                console.log(response)
+                const url = window.URL.createObjectURL(new Blob([response.data]))
+                const link = document.createElement('a')
+                link.href = url
+                link.setAttribute('download', 'payreq-' + pParam.no + '.pdf')
+                document.body.appendChild(link)
+                link.click()
                 return response.data
             })
     }

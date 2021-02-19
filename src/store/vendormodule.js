@@ -75,6 +75,7 @@ export const vendor = {
 
     mutations: {
         getVendorList (state, data) {
+            console.log(data)
             state.vendors = data
         },
 

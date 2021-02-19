@@ -1,7 +1,7 @@
 import axios from 'axios'
 import ApiService from './apiService'
 
-const BASE_URL = ApiService.nootebook('fautility')
+const BASE_URL = ApiService.private('fautility')
 // const BASE_URL = 'http://localhost:6189/api/sanqua_fautility/v1'
 
 const user = JSON.parse(localStorage.getItem('user'))

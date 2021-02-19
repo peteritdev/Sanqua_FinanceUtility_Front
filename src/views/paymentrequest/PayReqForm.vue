@@ -524,25 +524,26 @@
     methods: {
       updateData () {
         this.getCompanyDropDown()
-        if (!this.$route.params.id) {
-          this.$store.commit('payreq/setAddLine', false)
-          this.paramAPI.requester_name = _sessionUser.employee.name
-          this.paramAPI.department_name = _sessionUser.employee.department.name
-          this.paramAPI.department_id = _sessionUser.employee.department.id
-          this.paramAPI.position_id = _sessionUser.employee.level.id
-          this.paramAPI.position_name = _sessionUser.employee.level.name
-          this.paramAPI.requester_id = _sessionUser.employee_id
-          this.paramAPI.act = 'add'
-        } else {
-          this.$store.commit('payreq/setAddLine', true)
-          this.payReqHeaderId = this.$route.params.id
-          this.paramAPI.id = this.$route.params.id
-          // Object.assign(this.paramAPI, { id: this.$route.params.id })
-          this.paramAPI.act = 'update'
-          this.getPayReqHeaderById(this.$route.params.id)
-          // this.$refs.payReqDetailList.submitSearch('', 'default')
-        }
+        // if (!this.$route.params.id) {
+        //   this.$store.commit('payreq/setAddLine', false)
+        //   this.paramAPI.requester_name = _sessionUser.employee.name
+        //   this.paramAPI.department_name = _sessionUser.employee.department.name
+        //   this.paramAPI.department_id = _sessionUser.employee.department.id
+        //   this.paramAPI.position_id = _sessionUser.employee.level.id
+        //   this.paramAPI.position_name = _sessionUser.employee.level.name
+        //   this.paramAPI.requester_id = _sessionUser.employee_id
+        //   this.paramAPI.act = 'add'
+        // } else {
+        this.$store.commit('payreq/setAddLine', true)
+        this.payReqHeaderId = this.$route.params.id
+        this.paramAPI.id = this.$route.params.id
+        // Object.assign(this.paramAPI, { id: this.$route.params.id })
+        this.paramAPI.act = 'update'
+        this.getPayReqHeaderById(this.$route.params.id)
+        // this.$refs.payReqDetailList.submitSearch('', 'default')
+        // }
         this.isRouterId = this.$store.state.payreq.showButton
+        console.log(this.$store.state.payreq.showButton)
       },
 
       showMsgDialog (pModalType, pStatusMsg) {
@@ -668,7 +669,7 @@
       // },
 
       exportPDF () {
-        this.$store.dispatch('payreq/exportToPDF', { id: this.payReqHeaderId }).then(
+        this.$store.dispatch('payreq/exportToPDF', { id: this.payReqHeaderId, no: this.payReqNo }).then(
           response => {
             console.log(response)
           },
