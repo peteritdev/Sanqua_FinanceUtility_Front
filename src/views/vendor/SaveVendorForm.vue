@@ -291,7 +291,7 @@
           bank_name: this.$store.state.vendor.detail.bank_name,
           account_number: this.$store.state.vendor.detail.account_number,
           account_name: this.$store.state.vendor.detail.account_name,
-          currency_id: 8,
+          currency_id: this.$store.state.vendor.detail.currency !== null ? this.$store.state.vendor.detail.currency.id : null,
         }
       }
     },

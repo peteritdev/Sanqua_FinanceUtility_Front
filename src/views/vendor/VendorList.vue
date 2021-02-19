@@ -114,7 +114,7 @@
           },
           {
             text: 'Currency',
-            value: 'currency_name',
+            value: 'currency.symbol',
             align: 'center',
             sortable: true,
           },
