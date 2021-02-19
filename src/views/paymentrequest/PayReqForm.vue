@@ -489,9 +489,9 @@
       },
     },
 
-    mounted () {
-      this.$refs.html2Pdf.generatePdf()
-    },
+    // mounted () {
+    //   this.$refs.html2Pdf.generatePdf()
+    // },
 
     beforeMount () {},
     updated () {
@@ -522,8 +522,10 @@
     },
 
     methods: {
-      updateData () {
+      updateData (id) {
         this.getCompanyDropDown()
+        console.log(this.$route.params)
+        console.log(this.$route.params.id)
         // if (!this.$route.params.id) {
         //   this.$store.commit('payreq/setAddLine', false)
         //   this.paramAPI.requester_name = _sessionUser.employee.name
@@ -535,15 +537,14 @@
         //   this.paramAPI.act = 'add'
         // } else {
         this.$store.commit('payreq/setAddLine', true)
-        this.payReqHeaderId = this.$route.params.id
-        this.paramAPI.id = this.$route.params.id
+        this.payReqHeaderId = id
+        this.paramAPI.id = id
         // Object.assign(this.paramAPI, { id: this.$route.params.id })
         this.paramAPI.act = 'update'
-        this.getPayReqHeaderById(this.$route.params.id)
+        this.getPayReqHeaderById(id)
         // this.$refs.payReqDetailList.submitSearch('', 'default')
         // }
         this.isRouterId = this.$store.state.payreq.showButton
-        console.log(this.$store.state.payreq.showButton)
       },
 
       showMsgDialog (pModalType, pStatusMsg) {
@@ -601,10 +602,10 @@
               response => {
                 if (self.paramAPI.act === 'add') {
                   self.resetForm()
-                  self.$router.push('/admin/pages/paymentrequest/form/id/' + response.encrypted_id)
+                  // self.$router.push('/admin/pages/paymentrequest/form/id/' + response.encrypted_id)
+                  // self.getPayReqHeaderById(response.encrypted_id)
+                  self.updateData(response.encrypted_id)
                   // // self.$store.commit('payreq/setAddLine', true)
-                  self.getPayReqHeaderById(response.encrypted_id)
-                  self.updateData()
                 } else {
                   self.getPayReqHeaderById(self.$route.params.id)
                 }
