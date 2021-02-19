@@ -524,26 +524,11 @@
     methods: {
       updateData (id) {
         this.getCompanyDropDown()
-        console.log(this.$route.params)
-        console.log(this.$route.params.id)
-        // if (!this.$route.params.id) {
-        //   this.$store.commit('payreq/setAddLine', false)
-        //   this.paramAPI.requester_name = _sessionUser.employee.name
-        //   this.paramAPI.department_name = _sessionUser.employee.department.name
-        //   this.paramAPI.department_id = _sessionUser.employee.department.id
-        //   this.paramAPI.position_id = _sessionUser.employee.level.id
-        //   this.paramAPI.position_name = _sessionUser.employee.level.name
-        //   this.paramAPI.requester_id = _sessionUser.employee_id
-        //   this.paramAPI.act = 'add'
-        // } else {
         this.$store.commit('payreq/setAddLine', true)
         this.payReqHeaderId = id
         this.paramAPI.id = id
-        // Object.assign(this.paramAPI, { id: this.$route.params.id })
         this.paramAPI.act = 'update'
         this.getPayReqHeaderById(id)
-        // this.$refs.payReqDetailList.submitSearch('', 'default')
-        // }
         this.isRouterId = this.$store.state.payreq.showButton
       },
 
@@ -602,7 +587,7 @@
               response => {
                 if (self.paramAPI.act === 'add') {
                   self.resetForm()
-                  // self.$router.push('/admin/pages/paymentrequest/form/id/' + response.encrypted_id)
+                  self.$router.push('/admin/pages/paymentrequest/form/id/' + response.encrypted_id)
                   // self.getPayReqHeaderById(response.encrypted_id)
                   self.updateData(response.encrypted_id)
                   // // self.$store.commit('payreq/setAddLine', true)
