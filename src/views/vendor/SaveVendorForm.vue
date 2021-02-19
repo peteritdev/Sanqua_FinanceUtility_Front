@@ -200,7 +200,6 @@
   export default {
     components: {
     },
-    props: ['formAct'],
     data () {
       return {
 

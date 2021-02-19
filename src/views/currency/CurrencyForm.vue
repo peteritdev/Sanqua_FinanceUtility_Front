@@ -100,16 +100,11 @@
       return {
 
         paramAPI: {
-          act: 'add',
-          id: null,
+          act: '',
+          // id: null,
           code: '',
           symbol: '',
         },
-
-        // Currency
-        searchCurrency: null,
-        currencyDropdown: [],
-
         // Payment method
         paymentMethods: [
           {
@@ -152,7 +147,15 @@
 
     beforeMount () {},
 
-    created () {},
+    created () {
+      if (this.$route.params.id) {
+        this.paramAPI = {
+          act: '',
+          code: this.$store.state.currency.detail.code,
+          symbol: this.$store.state.currency.detail.symbol,
+        }
+      }
+    },
 
     methods: {
 
@@ -166,11 +169,30 @@
         })
       },
       onSubmitHeader () {
-        this.showMsgDialog('success', 'vendor has been created')
+        this.paramAPI.act = this.$store.state.currency.act
+        if (this.paramAPI.act === 'update') {
+          Object.assign(this.paramAPI, { id: this.$route.params.id })
+        }
+        this.$store.dispatch('currency/saveCurrency', this.paramAPI)
+          .then(
+            data => {
+              this.showMsgDialog('success', data.status_msg)
+              this.resetForm()
+              this.$router.push('/admin/pages/currency')
+            },
+            error => {
+              console.log(error)
+            },
+          )
       },
 
       resetForm () {
-        this.paramAPI.act = 'add'
+        this.$store.commit('currency/actFormCurrency', 'add')
+        this.paramAPI = {
+          act: '',
+          code: '',
+          symbol: '',
+        }
       },
     },
   }

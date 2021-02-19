@@ -9,13 +9,12 @@
         <v-text-field
           v-model="keyword"
           label="Keyword Search..."
-          v-bind="attrs"
         />
       </v-col>
       <v-col
         cols="12"
         sm="3"
-        md="1"
+        md="2"
       >
         <v-btn
           color="blue"
@@ -34,7 +33,7 @@
       <v-col
         cols="12"
         sm="3"
-        md="1"
+        md="2"
       >
         <v-btn
           color="green"

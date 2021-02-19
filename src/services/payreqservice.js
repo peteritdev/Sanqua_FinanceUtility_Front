@@ -8,6 +8,7 @@ const API_URL = ApiService.nootebook('fautility')
 class PayReqService {
     // Header
     savePayReqHeaderSave (pParam) {
+        console.log(pParam)
         return axios
             .post(API_URL + '/payreqheader/save', pParam, {
                 headers: authHeader(),

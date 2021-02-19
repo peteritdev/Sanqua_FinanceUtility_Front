@@ -158,7 +158,8 @@
         this.paramAPI.order_type = (this.options.sortDesc.length === 0 ? 'desc' : (this.options.sortDesc[0] === true ? 'desc' : 'asc'))
         this.$store.dispatch('payreq/getPayReqDetail', this.paramAPI).then(
           data => {
-            console.log(JSON.stringify(data.data))
+            console.log(data)
+            // console.log(JSON.stringify(data.data))
             this.payReqDetailData = data.data
             this.totalPayReqDetailData = data.total_record
           },

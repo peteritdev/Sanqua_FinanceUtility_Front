@@ -95,7 +95,6 @@ export const vendor = {
         },
 
         detailVendor (state, data) {
-            console.log(data)
             state.detail = data
         },
     },

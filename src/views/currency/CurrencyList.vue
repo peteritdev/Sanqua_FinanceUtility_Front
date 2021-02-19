@@ -14,12 +14,13 @@
       />
       <br><br>
       <v-data-table
-        class="elevation-1"
+        class="elevation-1 row-pointer"
         :headers="headers"
         :items="currency"
         :options.sync="options"
         :server-items-length="totalCurrencyData"
         :loading="loading"
+        @click:row="rowClick"
       >
         <template v-slot:[`item.actions`]="{ item }">
           &nbsp;
@@ -51,26 +52,18 @@
           keyword: '',
           offset: 0,
           limit: 0,
-          order_by: [],
-          order_type: [],
         },
         currency: [],
         headers: [
           {
-            text: 'No',
-            value: 'no',
+            text: 'Code',
+            value: 'code',
             align: 'left',
             sortable: true,
           },
           {
-            text: 'Currency Name',
-            value: 'currency_name',
-            align: 'left',
-            sortable: true,
-          },
-          {
-            text: 'Currency Symbol',
-            value: 'currency_symbol',
+            text: 'Symbol',
+            value: 'symbol',
             align: 'left',
             sortable: true,
           },
@@ -82,7 +75,6 @@
           },
         ],
         showForm: false,
-        currencyData: {},
         totalCurrencyData: 0,
         loading: true,
         options: {},
@@ -111,13 +103,10 @@
 
         this.paramAPI.offset = (this.options.page === 1 ? this.options.page - 1 : (((this.options.page - 1) + this.options.itemsPerPage) - 1))
         this.paramAPI.limit = this.options.itemsPerPage
-        this.paramAPI.order_by = (this.options.sortBy.length === 0 ? '' : this.options.sortBy[0])
-        this.paramAPI.order_type = (this.options.sortDesc.length === 0 ? 'desc' : (this.options.sortDesc[0] === true ? 'desc' : 'asc'))
-
-        this.$store.dispatch('vendor/getVendorList', this.paramAPI).then(
+        this.$store.dispatch('currency/getCurrencyList', this.paramAPI).then(
           data => {
-            console.log(JSON.stringify(data))
             this.currency = data.data
+            console.log(this.currency)
             this.totalCurrencyData = data.total_record
           },
           error => {
@@ -139,6 +128,34 @@
         this.submitSearch('')
       },
 
+      showModalConfirmDelete (pValue) {
+        this.$confirm('Are you sure you want delete this data?.', 'Confirmation', 'question')
+          .then(() => {
+            const paramAPIDelete = {
+              id: pValue.id,
+            }
+
+            this.$store.dispatch('currency/deleteCurrency', paramAPIDelete)
+              .then(
+                data => {
+                  this.showMsgDialog('success', data.status_msg)
+                },
+                error => {
+                  console.log('Error delete:' + error)
+                },
+              )
+          })
+          .catch(() => {
+            console.log('Cancel delete')
+          })
+      },
+
+      rowClick (pItem) {
+        this.$store.commit('currency/actFormCurrency', 'update')
+        this.$store.commit('currency/detailCurrency', pItem)
+        this.$router.push('/admin/pages/currency/form/id/' + pItem.id)
+      },
+
     },
   }
 </script>
@@ -150,5 +167,8 @@
     border: 1px solid rgba(0, 0, 0, 0.125);
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.21);
     background-color: transparent;
+  }
+  .row-pointer>.v-data-table__wrapper>table>tbody>tr :hover {
+    cursor: pointer;
   }
 </style>

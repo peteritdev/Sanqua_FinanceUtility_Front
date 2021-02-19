@@ -4,6 +4,7 @@ export const payreq = {
     namespaced: true,
     state: {
         response: [],
+        showButton: false,
     },
 
     actions: {
@@ -114,6 +115,10 @@ export const payreq = {
         },
         exportToPDF (state, data) {
             state.response = data
+        },
+        setAddLine (state, data) {
+            console.log(data)
+            state.showButton = data
         },
     },
 }

@@ -126,7 +126,6 @@
           },
         ],
         showForm: false,
-        vendorData: {},
         totalVendorData: 0,
         loading: true,
         options: {},
@@ -216,11 +215,6 @@
             console.log('Cancel delete')
           })
       },
-
-      // editItem (value) {
-      //   value.act = 'update'
-      //   this.vendorData = value
-      // },
       rowClick (pItem) {
         this.$store.commit('vendor/actFormVendor', 'update')
         this.$store.commit('vendor/detailVendor', pItem)
@@ -239,4 +233,7 @@
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.21);
     background-color: transparent;
   }
+.row-pointer>.v-data-table__wrapper>table>tbody>tr :hover {
+  cursor: pointer;
+}
 </style>

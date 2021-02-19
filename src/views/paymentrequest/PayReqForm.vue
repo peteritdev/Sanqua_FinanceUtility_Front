@@ -270,13 +270,13 @@
             md="12"
           >
             <pay-req-detail-list
+              v-if="isRouterId"
               ref="payReqDetailList"
               :pay-req-header-id="paramAPI.id"
               @getPayReqHeaderById="getPayReqHeaderById"
             />
           </v-col>
         </v-row>
-
         <v-row>
           <v-col
             cols="12"
@@ -324,6 +324,7 @@
     },
     data () {
       return {
+        isRouterId: false,
 
         requesterName: '',
 
@@ -333,7 +334,7 @@
 
         paramAPI: {
           act: 'add',
-          id: null,
+          // id: null,
           requester_id: null,
           requester_name: '',
           department_id: null,
@@ -467,6 +468,7 @@
         // Rules
         valid: false,
         vendorRule: [
+          v => v.id !== '' || 'Vendor is required',
           // v => (v.id !== '' && this.paramAPI.act !== 'update') || 'Vendor is required',
         ],
         paymentMethodRule: [
@@ -492,10 +494,14 @@
     },
 
     beforeMount () {},
+    updated () {
+      // this.updateData()
+    },
 
     created () {
       this.getCompanyDropDown()
       if (!this.$route.params.id) {
+        this.$store.commit('payreq/setAddLine', false)
         this.paramAPI.requester_name = _sessionUser.employee.name
         this.paramAPI.department_name = _sessionUser.employee.department.name
         this.paramAPI.department_id = _sessionUser.employee.department.id
@@ -504,15 +510,40 @@
         this.paramAPI.requester_id = _sessionUser.employee_id
         this.paramAPI.act = 'add'
       } else {
+        this.$store.commit('payreq/setAddLine', true)
         this.payReqHeaderId = this.$route.params.id
         this.paramAPI.id = this.$route.params.id
+        // Object.assign(this.paramAPI, { id: this.$route.params.id })
         this.paramAPI.act = 'update'
         this.getPayReqHeaderById(this.$route.params.id)
         // this.$refs.payReqDetailList.submitSearch('', 'default')
       }
+      this.isRouterId = this.$store.state.payreq.showButton
     },
 
     methods: {
+      updateData () {
+        this.getCompanyDropDown()
+        if (!this.$route.params.id) {
+          this.$store.commit('payreq/setAddLine', false)
+          this.paramAPI.requester_name = _sessionUser.employee.name
+          this.paramAPI.department_name = _sessionUser.employee.department.name
+          this.paramAPI.department_id = _sessionUser.employee.department.id
+          this.paramAPI.position_id = _sessionUser.employee.level.id
+          this.paramAPI.position_name = _sessionUser.employee.level.name
+          this.paramAPI.requester_id = _sessionUser.employee_id
+          this.paramAPI.act = 'add'
+        } else {
+          this.$store.commit('payreq/setAddLine', true)
+          this.payReqHeaderId = this.$route.params.id
+          this.paramAPI.id = this.$route.params.id
+          // Object.assign(this.paramAPI, { id: this.$route.params.id })
+          this.paramAPI.act = 'update'
+          this.getPayReqHeaderById(this.$route.params.id)
+          // this.$refs.payReqDetailList.submitSearch('', 'default')
+        }
+        this.isRouterId = this.$store.state.payreq.showButton
+      },
 
       showMsgDialog (pModalType, pStatusMsg) {
         this.$fire({
@@ -570,6 +601,9 @@
                 if (self.paramAPI.act === 'add') {
                   self.resetForm()
                   self.$router.push('/admin/pages/paymentrequest/form/id/' + response.encrypted_id)
+                  // // self.$store.commit('payreq/setAddLine', true)
+                  self.getPayReqHeaderById(response.encrypted_id)
+                  self.updateData()
                 } else {
                   self.getPayReqHeaderById(self.$route.params.id)
                 }
@@ -625,6 +659,7 @@
 
       resetForm () {
         // this.$refs.entryForm.reset()
+        this.$store.commit('payreq/setAddLine', false)
         this.paramAPI.act = 'add'
       },
 

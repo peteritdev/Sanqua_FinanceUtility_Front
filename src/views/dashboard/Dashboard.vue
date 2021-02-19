@@ -38,11 +38,16 @@
           </v-card-text>
         </base-material-card>
       </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="1"
+      ></v-col>
 
       <v-col
         cols="12"
         sm="6"
-        lg="3"
+        lg="4"
       >
         <base-material-stats-card
           :value="summaryAttendances[0].total_attend"
@@ -53,11 +58,16 @@
           :sub-text="summaryAttendances[0].att_date"
         />
       </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="1"
+      ></v-col>
 
       <v-col
         cols="12"
         sm="6"
-        lg="3"
+        lg="4"
       >
         <base-material-stats-card
           color="red"
@@ -68,11 +78,21 @@
           :sub-text="summaryAttendances[0].att_date"
         />
       </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="2"
+      ></v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="1"
+      ></v-col>
 
       <v-col
         cols="12"
         sm="6"
-        lg="3"
+        lg="4"
       >
         <base-material-stats-card
           color="success"
@@ -83,11 +103,16 @@
           :sub-text="summaryAttendances[0].att_date"
         />
       </v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="1"
+      ></v-col>
 
       <v-col
         cols="12"
         sm="6"
-        lg="3"
+        lg="4"
       >
         <base-material-stats-card
           color="orange"

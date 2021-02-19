@@ -9,12 +9,13 @@ import { download } from './downloadmodule'
 import { payreq } from './payreqmodule'
 import { company } from './companymodule'
 import { report } from './reportmodule'
+import { currency } from './currencymodule'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    auth, vendor, user, download, invoice, payreq, company, report,
+    auth, vendor, user, download, invoice, payreq, company, report, currency,
   },
   getters: {
     getLoggedUserInfo () {

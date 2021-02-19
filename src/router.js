@@ -81,6 +81,11 @@ export default new Router({
           path: 'pages/currency/form',
           component: () => import('@/views/currency/CurrencyForm'),
         },
+        {
+          name: 'Currency Form',
+          path: 'pages/currency/form/id/:id',
+          component: () => import('@/views/currency/CurrencyForm'),
+        },
       ],
     },
   ],
