@@ -237,7 +237,7 @@
 
       downloadTemplate (pParam) {
         axios({
-          url: 'http://l10.10.20.8:6189/api/sanqua_fautility/v1/download/template/' + pParam,
+          url: 'http://10.10.20.8:6189/api/sanqua_fautility/v1/download/template/' + pParam,
           method: 'GET',
           responseType: 'blob',
         })
