@@ -119,6 +119,18 @@
             sortable: true,
           },
           {
+            text: 'Company ID',
+            value: 'company_id',
+            align: 'right',
+            sortable: true,
+          },
+          {
+            text: 'Company Name',
+            value: 'company',
+            align: 'right',
+            sortable: true,
+          },
+          {
             text: 'Actions',
             value: 'actions',
             align: 'center',
