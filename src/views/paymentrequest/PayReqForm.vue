@@ -548,6 +548,11 @@
           response => {
             this.vendorsDropdown = response
             this.loadingAutocomplete = false
+            this.paramAPI.payment_method = ''
+            this.paramAPI.account_name = ''
+            this.paramAPI.account_number = ''
+            this.paramAPI.bank_name = ''
+            this.isNotCash = false
           },
         )
       },
@@ -568,6 +573,7 @@
           this.paramAPI.account_number = ''
           this.paramAPI.account_name = ''
         } else {
+          this.getVendorById(this.vendorsSelect.id)
           this.isNotCash = true
         }
       },
@@ -605,6 +611,22 @@
             )
           }
         })
+      },
+
+      getVendorById (pId) {
+        this.$store.dispatch('vendor/getVendorById', { id: pId }).then(
+          response => {
+            if (response.data.payment_method !== '') {
+              this.paramAPI.bank_name = response.data.bank_name
+              this.paramAPI.account_number = response.data.account_number
+              this.paramAPI.account_name = response.data.account_name
+            }
+          },
+          error => {
+            self.loading = false
+            self.showMsgDialog('error', 'Error : ' + error)
+          },
+        )
       },
 
       getPayReqHeaderById (pId) {

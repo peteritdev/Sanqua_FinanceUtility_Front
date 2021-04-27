@@ -247,7 +247,7 @@
           title: (pModalType === 'error' ? 'Failed' : 'Success'),
           html: pStatusMsg,
           type: pModalType,
-          timer: 3000,
+          timer: 10000,
         }).then(r => {
         })
         this.submitSearch('')
