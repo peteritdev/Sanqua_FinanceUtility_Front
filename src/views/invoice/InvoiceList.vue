@@ -106,12 +106,12 @@
             align: 'center',
             sortable: true,
           },
-          {
-            text: 'Potongan',
-            value: 'deduction',
-            align: 'right',
-            sortable: true,
-          },
+          // {
+          //   text: 'Potongan',
+          //   value: 'deduction',
+          //   align: 'right',
+          //   sortable: true,
+          // },
           // {
           //   text: 'Sisa Hutang',
           //   value: 'debt_value',
@@ -124,12 +124,12 @@
           //   align: 'right',
           //   sortable: true,
           // },
-          // {
-          //   text: 'Company Name',
-          //   value: 'company',
-          //   align: 'right',
-          //   sortable: true,
-          // },
+          {
+            text: 'Company Name',
+            value: 'company',
+            align: 'right',
+            sortable: true,
+          },
           {
             text: 'Actions',
             value: 'actions',
