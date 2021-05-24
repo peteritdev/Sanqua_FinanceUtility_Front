@@ -22,12 +22,12 @@
         @submit.prevent="onSubmitDetail"
       >
         <v-card-title>
-          <span class="headline">Add Line Payment Request</span>
+          <span class="text-h5">Add Line Payment Request</span>
         </v-card-title>
         <v-card-text>
           <v-text-field
             v-show="false"
-            v-model="this.paramAPI.act"
+            v-model="paramAPI.act"
           />
           <v-container>
             <v-row>
