@@ -2,17 +2,17 @@ class ApiService {
   local (access) {
       switch (access) {
           case 'oauth':
-            return 'http://10.10.20.8:1189/api/oauth/v1'
+            return 'http://10.10.20.8:9189/api/oauth/v1'
           case 'dev':
-            return 'http://10.10.20.8:1191/api/procurement/v1/'
+            return 'http://10.10.20.8:9191/api/procurement/v1/'
           case 'upload':
-            return 'http://10.10.20.8:1192/api/procurement/v1'
+            return 'http://10.10.20.8:9192/api/procurement/v1'
           case 'hr':
-            return 'http://10.10.20.8:2189/api/hr/v1'
+            return 'http://10.10.20.8:8189/api/hr/v1'
           case 'fautility':
             return 'http://10.10.20.8:6189/api/sanqua_fautility/v1'
           default:
-            return 'http://localhost:1189/api/oauth/v1'
+            return 'http://localhost:9189/api/oauth/v1'
       }
   }
 
