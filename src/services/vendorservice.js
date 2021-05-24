@@ -17,6 +17,18 @@ class VendorService {
             })
     }
 
+    getVendorById (pParam) {
+        var xStrQuery = `/${pParam.id}`
+        return axios
+            .get(API_URL + '/master/vendor/id' + xStrQuery, {
+                headers: authHeader(),
+            })
+            .then(response => {
+                console.log('>>> Vendor : ' + JSON.stringify(response.data))
+                return response.data
+            })
+    }
+
     getVendorDropDownList (pParam) {
         var xQueryStr = `?keyword=${pParam.keyword}&offset=0&limit=100&order_type=&order_by=`
         return axios

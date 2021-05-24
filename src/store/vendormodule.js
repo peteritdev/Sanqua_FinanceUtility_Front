@@ -22,6 +22,18 @@ export const vendor = {
             )
         },
 
+        getVendorById ({ commit }, pParam) {
+            return VendorService.getVendorById(pParam).then(
+                _response => {
+                    commit('getVendorById', _response)
+                    return Promise.resolve(_response)
+                },
+                _error => {
+                    return Promise.reject(_error)
+                },
+            )
+        },
+
         getVendorDropDown ({ commit }, pParam) {
             return VendorService.getVendorDropDownList(pParam).then(
                 _response => {
@@ -75,7 +87,10 @@ export const vendor = {
 
     mutations: {
         getVendorList (state, data) {
-            console.log(data)
+            state.vendors = data
+        },
+
+        getVendorById (state, data) {
             state.vendors = data
         },
 

@@ -159,6 +159,18 @@
             align: 'right',
             sortable: true,
           },
+          {
+            text: 'Company ID',
+            value: 'company_id',
+            align: 'right',
+            sortable: true,
+          },
+          {
+            text: 'Company Name',
+            value: 'company',
+            align: 'right',
+            sortable: true,
+          },
         ],
         uploadItems: [],
 
@@ -235,7 +247,7 @@
           title: (pModalType === 'error' ? 'Failed' : 'Success'),
           html: pStatusMsg,
           type: pModalType,
-          timer: 3000,
+          timer: 10000,
         }).then(r => {
         })
         this.submitSearch('')
