@@ -2,7 +2,7 @@ import axios from 'axios'
 import authHeader from './authheader'
 import ApiService from './apiService'
 
-const API_URL = ApiService.nootebook('fautility')
+const API_URL = ApiService.local('fautility')
 // const API_URL = 'http://localhost:6189/api/sanqua_fautility/v1'
 
 class InvoiceService {

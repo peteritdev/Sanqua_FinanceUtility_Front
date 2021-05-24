@@ -5,7 +5,7 @@ import ApiService from './apiService'
 
 // Prod
 // const API_URL = 'http://10.10.20.8:1189/api/oauth/v1'
-const API_URL = ApiService.nootebook('oauth')
+const API_URL = ApiService.local('oauth')
 
 // Localhost
 // const API_URL = 'http://localhost:1189/api/oauth/v1'
