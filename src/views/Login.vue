@@ -125,7 +125,7 @@
       logout () {
         this.$store.dispatch('auth/logout').then(
           () => {
-
+            this.$router.push('/')
           },
           error => {
             this.error = true

@@ -65,7 +65,14 @@
           :item="item"
         />
       </template>
-
+      <div @click="logout">
+        <base-item
+          :item="{
+            title: 'Logout',
+            icon: 'mdi-power',
+          }"
+        />
+      </div>
       <!-- Style cascading bug  -->
       <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
       <div />
@@ -121,11 +128,11 @@
           icon: 'mdi-file-document',
           to: '/admin/pages/paymentrequest/list',
         },
-        {
-          title: 'Currency',
-          icon: 'mdi-currency-usd',
-          to: '/admin/pages/currency',
-        },
+        // {
+        //   title: 'Currency',
+        //   icon: 'mdi-currency-usd',
+        //   to: '/admin/pages/currency',
+        // },
         /* {
           title: 'Upload Vendor',
           icon: 'mdi-arrow-up-bold',
@@ -167,6 +174,19 @@
           children: item.children ? item.children.map(this.mapItem) : undefined,
           title: this.$t(item.title),
         }
+      },
+      logout () {
+        this.$store.dispatch('auth/logout').then(
+          () => {
+            this.$router.push('/')
+          },
+          error => {
+            this.error = true
+            this.result = (error.response && error.response.data.status_msg) || error.message || error.toString()
+            this.showResult = true
+            console.log(this.result)
+          },
+        )
       },
     },
   }
