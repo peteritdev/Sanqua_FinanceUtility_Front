@@ -488,7 +488,7 @@
     },
 
     mounted () {
-      this.$refs.html2Pdf.generatePdf()
+      // this.$refs.html2Pdf.generatePdf()
     },
 
     beforeMount () {},

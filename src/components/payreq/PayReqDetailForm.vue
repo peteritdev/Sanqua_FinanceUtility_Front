@@ -22,7 +22,7 @@
         @submit.prevent="onSubmitDetail"
       >
         <v-card-title>
-          <span class="headline">Add Line Payment Request</span>
+          <span class="text-h5">Add Line Payment Request</span>
         </v-card-title>
         <v-card-text>
           <v-text-field
@@ -267,7 +267,7 @@
 
       getInvoiceDropDown (pKeyword) {
         this.loadingAutocomplete = true
-        this.$store.dispatch('invoice/getInvoiceList', { keyword: pKeyword, offset: 0, limit: 20, order_type: 'ASC', order_by: 'invoice_no' }).then(
+        this.$store.dispatch('invoice/getInvoiceList', { keyword: pKeyword, offset: 0, limit: 20, order_type: 'ASC', order_by: 'invoice_no', header_id: this.headerId }).then(
           response => {
             this.invoicesDropDown = response.data
             this.loadingAutocomplete = false
