@@ -489,9 +489,9 @@
       },
     },
 
-    // mounted () {
-    //   this.$refs.html2Pdf.generatePdf()
-    // },
+    mounted () {
+      // this.$refs.html2Pdf.generatePdf()
+    },
 
     beforeMount () {},
     updated () {

@@ -17,7 +17,14 @@ class InvoiceService {
     }
 
     getInvoiceList (pParam) {
-        var xStrQuery = `?keyword=${pParam.keyword}&offset=${pParam.offset}&limit=${pParam.limit}&order_by=${pParam.order_by}&order_type=${pParam.order_type}&header_id=${pParam.header_id}&mode=${pParam.mode}`
+        var xStrQuery = ''
+
+        if (Object.prototype.hasOwnProperty.call(pParam, 'header_id')) {
+            xStrQuery = `?keyword=${pParam.keyword}&offset=${pParam.offset}&limit=${pParam.limit}&order_by=${pParam.order_by}&order_type=${pParam.order_type}&mode=drop_down&header_id=${pParam.header_id}`
+        } else {
+            xStrQuery = `?keyword=${pParam.keyword}&offset=${pParam.offset}&limit=${pParam.limit}&order_by=${pParam.order_by}&order_type=${pParam.order_type}`
+        }
+
         return axios
             .get(API_URL + '/invoice/list' + xStrQuery, {
                 headers: authHeader(),

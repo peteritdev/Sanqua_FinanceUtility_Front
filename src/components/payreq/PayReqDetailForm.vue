@@ -267,7 +267,7 @@
 
       getInvoiceDropDown (pKeyword) {
         this.loadingAutocomplete = true
-        this.$store.dispatch('invoice/getInvoiceList', { keyword: pKeyword, offset: 0, limit: 20, order_type: 'ASC', order_by: 'invoice_no', header_id: this.headerId, mode: 'drop_down' }).then(
+        this.$store.dispatch('invoice/getInvoiceList', { keyword: pKeyword, offset: 0, limit: 20, order_type: 'ASC', order_by: 'invoice_no', header_id: this.headerId }).then(
           response => {
             this.invoicesDropDown = response.data
             this.loadingAutocomplete = false
