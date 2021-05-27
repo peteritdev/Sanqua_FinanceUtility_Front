@@ -126,7 +126,7 @@
           // },
           {
             text: 'Company Name',
-            value: 'company',
+            value: 'company.name',
             align: 'right',
             sortable: true,
           },
