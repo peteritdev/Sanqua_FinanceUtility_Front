@@ -289,8 +289,8 @@
 
       resetForm (self) {
         self.$refs.entryForm.reset()
-        self.invoicesDropDown = []
-        self.selectedInvoice = {
+        this.invoicesDropDown = []
+        this.selectedInvoice = {
           id: '',
           invoice_date: '',
           invoice_no: '',
