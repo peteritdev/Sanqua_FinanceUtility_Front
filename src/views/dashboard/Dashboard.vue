@@ -15,11 +15,11 @@
           class="px-5 py-3"
         >
           <template v-slot:heading>
-            <div class="display-2 font-weight-light">
+            <div class="text-h3 font-weight-light">
               Filter By Company
             </div>
 
-            <div class="subtitle-1 font-weight-light">
+            <div class="text-subtitle-1 font-weight-light">
               Silahkan pilih PT yang ingin ditampilkan di dashboard ({{ cookieUser.sanqua_company_id }})
             </div>
           </template>
@@ -42,7 +42,7 @@
         cols="12"
         sm="6"
         lg="1"
-      ></v-col>
+      />
 
       <v-col
         cols="12"
@@ -62,7 +62,7 @@
         cols="12"
         sm="6"
         lg="1"
-      ></v-col>
+      />
 
       <v-col
         cols="12"
@@ -82,12 +82,12 @@
         cols="12"
         sm="6"
         lg="2"
-      ></v-col>
+      />
       <v-col
         cols="12"
         sm="6"
         lg="1"
-      ></v-col>
+      />
 
       <v-col
         cols="12"
@@ -107,7 +107,7 @@
         cols="12"
         sm="6"
         lg="1"
-      ></v-col>
+      />
 
       <v-col
         cols="12"

@@ -3,6 +3,7 @@
     v-model="dialog"
     persistent
     max-width="700px"
+    @close="resetForm"
   >
     <template v-slot:activator="{ on, attrs }">
       <v-btn
@@ -10,7 +11,6 @@
         dark
         v-bind="attrs"
         v-on="on"
-        @click="resetForm"
       >
         Add Line
       </v-btn>
@@ -49,6 +49,7 @@
                   hide-details
                   label="Search Invoice"
                   return-object
+                  :rules="[ v => v.id !== '' || 'test 123']"
                   @change="changeSelectInvoice"
                 />
               </v-col>
@@ -159,7 +160,7 @@
             color="red darken-1"
             class="ma-2"
             text
-            @click="dialog = false"
+            @click.stop="dialog = false"
           >
             Close
           </v-btn>
@@ -187,6 +188,10 @@
         default () {
           return ''
         },
+      },
+      required: {
+        type: Boolean,
+        default: false,
       },
     },
     data () {
@@ -240,7 +245,7 @@
 
     watch: {
       searchInvoice (val) {
-        val && val !== this.vendorsSelect && this.getInvoiceDropDown(val)
+        val && val !== this.selectedInvoice && this.getInvoiceDropDown(val)
       },
     },
 
@@ -251,17 +256,19 @@
       onSubmitDetail () {
         const self = this
         setTimeout(function () {
-          self.loading = true
-          self.$store.dispatch('payreq/savePayReqDetail', self.paramAPI).then(
-            response => {
-              self.loading = false
-              self.$emit('showMsgDialog', 'success', response.status_msg)
-              self.resetForm()
-            },
-          )
+          if (self.$refs.entryForm.validate() && self.selectedInvoice.id !== '') {
+            self.loading = true
+            self.$store.dispatch('payreq/savePayReqDetail', self.paramAPI).then(
+              response => {
+                self.loading = false
+                self.$emit('showMsgDialog', 'success', response.status_msg)
+                self.resetForm()
+              },
+            )
 
-          self.loading = false
-          self.dialog = false
+            self.loading = false
+            self.dialog = false
+          }
         })
       },
 
@@ -288,9 +295,8 @@
       },
 
       resetForm () {
-        this.$refs.entryForm.reset()
         this.invoicesDropDown = []
-        this.$set(this, this.selectedInvoice, {
+        this.selectedInvoice = {
           id: '',
           invoice_date: '',
           invoice_no: '',
@@ -304,7 +310,7 @@
           debt_value: 0,
           created_at: '',
           updated_at: '',
-        })
+        }
       },
     },
   }
