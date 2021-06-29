@@ -10,7 +10,7 @@
         dark
         v-bind="attrs"
         v-on="on"
-        @click.stop="resetForm"
+        @click="resetForm"
       >
         Add Line
       </v-btn>
