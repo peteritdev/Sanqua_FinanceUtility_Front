@@ -256,7 +256,7 @@
             response => {
               self.loading = false
               self.$emit('showMsgDialog', 'success', response.status_msg)
-              self.resetForm()
+              self.resetForm(self)
             },
           )
 
@@ -287,10 +287,10 @@
         this.paramAPI.note = ''
       },
 
-      resetForm () {
-        // this.$refs.entryForm.reset()
-        this.invoicesDropDown = []
-        this.selectedInvoice = {
+      resetForm (self) {
+        self.$refs.entryForm.reset()
+        self.invoicesDropDown = []
+        self.selectedInvoice = {
           id: '',
           invoice_date: '',
           invoice_no: '',
