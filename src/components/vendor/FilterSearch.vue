@@ -9,6 +9,7 @@
         <v-text-field
           v-model="keyword"
           label="Keyword Search..."
+          @keydown.enter="submitSearch"
         />
       </v-col>
       <v-col
