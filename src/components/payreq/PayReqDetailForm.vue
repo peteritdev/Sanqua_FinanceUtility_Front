@@ -256,7 +256,7 @@
             response => {
               self.loading = false
               self.$emit('showMsgDialog', 'success', response.status_msg)
-              this.resetForm()
+              self.resetForm()
             },
           )
 
