@@ -43,7 +43,6 @@
                   :search-input.sync="searchInvoice"
                   item-text="invoice_no"
                   item-value="id"
-                  cache-items
                   class="mx-1"
                   flat
                   hide-no-data
