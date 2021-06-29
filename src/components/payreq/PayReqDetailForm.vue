@@ -278,13 +278,13 @@
       },
       changeSelectInvoice () {
         // alert(JSON.stringify(this.selectedInvoice))
-        this.paramAPI.act = 'add'
-        this.paramAPI.header_id = this.headerId
-        this.paramAPI.ref_type = 'invoice'
-        this.paramAPI.ref_id = this.selectedInvoice.id
-        this.paramAPI.description = this.selectedInvoice.invoice_no
-        this.paramAPI.total = this.selectedInvoice.debt_value
-        this.paramAPI.note = ''
+        // this.paramAPI.act = 'add'
+        // this.paramAPI.header_id = this.headerId
+        // this.paramAPI.ref_type = 'invoice'
+        // this.paramAPI.ref_id = this.selectedInvoice.id
+        // this.paramAPI.description = this.selectedInvoice.invoice_no
+        // this.paramAPI.total = this.selectedInvoice.debt_value
+        // this.paramAPI.note = ''
       },
 
       resetForm (self) {
