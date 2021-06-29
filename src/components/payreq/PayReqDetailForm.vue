@@ -288,7 +288,7 @@
       },
 
       resetForm () {
-        this.$refs.entryForm.reset()
+        // this.$refs.entryForm.reset()
         this.invoicesDropDown = []
         this.selectedInvoice = {
           id: '',
