@@ -10,6 +10,7 @@
           v-model="keyword"
           label="Keyword Search..."
           v-bind="attrs"
+          @keydown.enter="submitSearch"
         />
       </v-col>
       <v-col

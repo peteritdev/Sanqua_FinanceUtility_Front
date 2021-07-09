@@ -9,6 +9,9 @@
       title="Payment Request"
       class="px-5 py-3"
     >
+      <filter-search
+        @submitSearch="submitSearch"
+      />
       <v-row>
         <v-col
           cols="12"
@@ -71,7 +74,9 @@
   // import FilterAccessDoorLog from '@/components/base/FilterSearchAccessDoorLog'
 
   export default {
-    components: {},
+    components: {
+      FilterSearch: () => import('@/components/payreq/FilterSearch'),
+    },
     props: {
       value: Boolean,
     },
