@@ -53,7 +53,7 @@
               mdi-pencil
             </v-icon>
           </v-btn-->
-          &nbsp;
+          <!-- &nbsp;
           <v-btn
             color="red"
             dark
@@ -62,7 +62,31 @@
             <v-icon small>
               mdi-delete
             </v-icon>
-          </v-btn>
+          </v-btn> -->
+          <td>
+            <v-btn
+              v-if="item.status === 0"
+              elevation="4"
+              style="width:52px;"
+              small
+              color="green"
+              dark
+              @click.stop="sendToTreasury(item)"
+            >
+              Send
+            </v-btn>
+            <v-btn
+              v-if="item.status === 1"
+              elevation="4"
+              style="width:52px;"
+              small
+              color="red"
+              dark
+              @click.stop="cancelSendToTreasury(item)"
+            >
+              Cancel
+            </v-btn>
+          </td>
         </template>
       </v-data-table>
     </base-material-card>
@@ -134,6 +158,12 @@
             value: 'total',
             align: 'right',
             sortable: true,
+          },
+          {
+            text: '',
+            value: 'actions',
+            align: 'right',
+            sortable: false,
           },
         ],
 
@@ -255,6 +285,40 @@
         this.$router.push('/admin/pages/paymentrequest/form/id/' + pItem.id)
       },
 
+      sendToTreasury(pItem) {
+        const form = {
+          id: pItem.id,
+          status: 1,
+        }
+        this.$store.dispatch('payreq/updateStatusTreasury', form)
+          .then(
+            data => {
+              console.log(data)
+              this.showMsgDialog('success', data.status_msg)
+            },
+            error => {
+              console.log(error)
+              console.log('Error delete:' + error)
+            },
+          )
+      },
+      cancelSendToTreasury(pItem) {
+        const form = {
+          id: pItem.id,
+          status: 0,
+        }
+        this.$store.dispatch('payreq/updateStatusTreasury', form)
+          .then(
+            data => {
+              console.log(data)
+              this.showMsgDialog('success', data.status_msg)
+            },
+            error => {
+              console.log(error)
+              console.log('Error delete:' + error)
+            },
+          )
+      },
     },
   }
 </script>

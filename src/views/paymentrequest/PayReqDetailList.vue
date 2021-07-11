@@ -141,6 +141,7 @@
     },
 
     created () {
+      console.log(this.payReqHeaderId)
     //   alert('Detail List : ' + this.payReqHeaderId)
     },
 

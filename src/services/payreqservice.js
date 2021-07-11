@@ -101,6 +101,17 @@ class PayReqService {
                 return response.data
             })
     }
+
+    updateStatusTreasury (pParam) {
+        console.log(pParam)
+        return axios
+            .post(API_URL + '/payreqheader/process_to_treasury', pParam, {
+                headers: authHeader(),
+            })
+            .then(response => {
+                return response.data
+            })
+    }
 }
 
 export default new PayReqService()

@@ -91,6 +91,17 @@ export const payreq = {
                 },
             )
         },
+        updateStatusTreasury ({ commit }, pParam) {
+            return PayReqService.updateStatusTreasury(pParam).then(
+                _response => {
+                    commit('updateStatusTreasury', _response)
+                    return Promise.resolve(_response)
+                },
+                _error => {
+                    return Promise.reject(_error)
+                },
+            )
+        },
     },
 
     mutations: {
@@ -119,6 +130,9 @@ export const payreq = {
         setAddLine (state, data) {
             console.log(data)
             state.showButton = data
+        },
+        updateStatusTreasury (state, data) {
+            state.response = data
         },
     },
 }
