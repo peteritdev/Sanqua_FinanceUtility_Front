@@ -18,28 +18,46 @@
           sm="3"
           md="1"
         >
-          <v-btn
-            color="green"
-            class="ma-2 white--text"
-            href="#/admin/pages/paymentrequest/form"
-          >
-            Tambah
-            <v-icon
-              right
-              dark
+          <div style="display:flex;">
+            <v-btn
+              color="green"
+              class="ma-2 white--text"
+              href="#/admin/pages/paymentrequest/form"
             >
-              mdi-file-plus
-            </v-icon>
-          </v-btn>
+              Tambah
+              <v-icon
+                right
+                dark
+              >
+                mdi-file-plus
+              </v-icon>
+            </v-btn>
+            <v-btn
+              v-if="selectedItem.length > 0"
+              color="green"
+              class="ma-2 white--text"
+              @click="exportFile"
+            >
+              Export
+              <v-icon
+                right
+                dark
+              >
+                mdi-file-export
+              </v-icon>
+            </v-btn>
+          </div>
         </v-col>
       </v-row>
       <v-data-table
+        v-model="selectedItem"
         :headers="headers"
         :items="payReqData"
         :options.sync="options"
         :server-items-length="totalPayReqData"
         :loading="loading"
         class="elevation-1 row-pointer"
+        show-select
         @click:row="rowClick"
       >
         <template v-slot:[`item.actions`]="{ item }">
@@ -96,7 +114,7 @@
 <script>
 
   // import FilterAccessDoorLog from '@/components/base/FilterSearchAccessDoorLog'
-
+  import XLSX from 'xlsx'
   export default {
     components: {
       FilterSearch: () => import('@/components/payreq/FilterSearch'),
@@ -172,6 +190,7 @@
         options: {},
 
         showForm: false,
+        selectedItem: [],
 
       }
     },
@@ -241,7 +260,6 @@
         })
         this.submitSearch('')
       },
-
       /* showImportDialog () {
         this.$fire({
           title: 'Import Data',
@@ -318,6 +336,59 @@
               console.log('Error delete:' + error)
             },
           )
+      },
+      exportFile() {
+        this.showMsgDialog2('question', 'Export Now ?').then(res => {
+          if (res.value) {
+            this.exportNow()
+          }
+          if (res.dismiss === 'cancel') {
+            this.selectedItem = []
+          }
+          if (res.dismiss === 'backdrop') {
+            this.selectedItem = []
+          }
+        })
+      },
+      exportNow() {
+        const arrData = []
+        for (let i = 0; i < this.selectedItem.length; i++) {
+          const param = {
+            'No. Payreq': this.selectedItem[i].payreq_no,
+            Tanggal: this.selectedItem[i].date,
+            'Nama PT': this.selectedItem[i].company_name,
+            Vendor: this.selectedItem[i].vendor_name,
+            Total: this.selectedItem[i].total,
+            'Status Send Treasury': this.selectedItem[i].has_sent_to_treasury,
+          }
+          arrData.push(param)
+        }
+        console.log(arrData)
+        this.downloadExcell(arrData)
+      },
+      downloadExcell(arrData) {
+        const data = XLSX.utils.json_to_sheet(arrData)
+        const wb = XLSX.utils.book_new()
+        XLSX.utils.book_append_sheet(wb, data, 'data')
+        XLSX.writeFile(wb, 'Payreq.xlsx')
+
+        setTimeout(() => {
+          this.selectedItem = []
+        }, 1000)
+      },
+      showMsgDialog2(pModalType, pStatusMsg) {
+        return new Promise(resolve => {
+          this.$fire({
+            type: pModalType,
+            html: `<strong style="font-size:18px;">${pStatusMsg}</strong>`,
+            showConfirmButton: true,
+            showCancelButton: true,
+            cancelButtonText: 'No',
+          })
+            .then(r => {
+              resolve(r)
+            })
+        })
       },
     },
   }
