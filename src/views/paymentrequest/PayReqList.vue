@@ -65,7 +65,7 @@
           </v-btn> -->
           <td>
             <v-btn
-              v-if="item.status === 0"
+              v-if="item.has_sent_to_treasury === 0"
               elevation="4"
               style="width:52px;"
               small
@@ -76,7 +76,7 @@
               Send
             </v-btn>
             <v-btn
-              v-if="item.status === 1"
+              v-if="item.has_sent_to_treasury === 1"
               elevation="4"
               style="width:52px;"
               small
