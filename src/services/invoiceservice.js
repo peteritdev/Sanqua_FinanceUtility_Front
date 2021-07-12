@@ -43,6 +43,17 @@ class InvoiceService {
                 return response.data
             })
     }
+
+    saveInvoice (pParam) {
+        console.log(pParam)
+        return axios
+            .post(API_URL + '/invoice/save', pParam, {
+                headers: authHeader(),
+            })
+            .then(response => {
+                return response.data
+            })
+    }
 }
 
 export default new InvoiceService()

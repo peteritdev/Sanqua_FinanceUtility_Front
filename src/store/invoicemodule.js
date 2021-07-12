@@ -43,6 +43,19 @@ export const invoice = {
                 },
             )
         },
+
+        saveInvoice ({ commit }, pParam) {
+            return InvoiceService.saveInvoice(pParam)
+            .then(
+                _response => {
+                    commit('saveInvoice', _response)
+                    return Promise.resolve(_response)
+                },
+                _error => {
+                    return Promise.reject(_error)
+                },
+            )
+        },
     },
 
     mutations: {
@@ -53,6 +66,9 @@ export const invoice = {
             state.response = data
         },
         getInvoiceList (state, data) {
+            state.response = data
+        },
+        saveInvoice (state, data) {
             state.response = data
         },
     },

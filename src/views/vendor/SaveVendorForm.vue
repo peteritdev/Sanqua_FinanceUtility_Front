@@ -34,14 +34,18 @@
             </v-card-actions>
           </v-col>
         </v-row>
-        <v-row>
+        <v-row style="position:relative;">
           <v-col
+            style="height:100px;"
             cols="12"
             sm="1"
             md="6"
           >
-            <div class="font-weight-medium text-h1">
-              #{{ paramAPI.name }}
+            <div
+              class="font-weight-medium text-h1"
+              style="width:100%;position:absolute;"
+            >
+              {{ paramAPI.name }}
             </div>
           </v-col>
         </v-row>

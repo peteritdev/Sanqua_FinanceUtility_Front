@@ -353,13 +353,15 @@
       exportNow() {
         const arrData = []
         for (let i = 0; i < this.selectedItem.length; i++) {
+          console.log(this.selectedItem[i])
           const param = {
             'No. Payreq': this.selectedItem[i].payreq_no,
             Tanggal: this.selectedItem[i].date,
             'Nama PT': this.selectedItem[i].company_name,
             Vendor: this.selectedItem[i].vendor_name,
             Total: this.selectedItem[i].total,
-            'Status Send Treasury': this.selectedItem[i].has_sent_to_treasury === 1 ? 'Sent' : 'pending',
+            'Status Treasury': this.selectedItem[i].has_sent_to_treasury === 1 ? 'Sent' : 'pending',
+            'Tgl. Kirim': this.selectedItem[i].sent_at,
           }
           arrData.push(param)
         }

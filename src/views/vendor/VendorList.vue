@@ -35,6 +35,7 @@
           </v-btn -->
           &nbsp;
           <v-btn
+            small
             color="red"
             dark
             @click.stop="showModalConfirmDelete(item)"

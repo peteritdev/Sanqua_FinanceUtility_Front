@@ -19,7 +19,8 @@
         :options.sync="options"
         :server-items-length="totalInvoiceData"
         :loading="loading"
-        class="elevation-1"
+        class="elevation-1 row-pointer"
+        @click:row="rowClick"
       >
         <!-- <template v-slot:item.actions="{ item }"> -->
         <template v-slot:[`item.actions`]="{ item }">
@@ -34,6 +35,7 @@
           </v-btn-->
           &nbsp;
           <v-btn
+            small
             color="red"
             dark
             @click.stop="showModalConfirmDelete(item)"
@@ -45,6 +47,13 @@
         </template>
       </v-data-table>
     </base-material-card>
+
+    <invoice-detail-form
+      ref="InvoiceDetailForm"
+      v-model="showForm"
+      :detailInovice="detail"
+      @showMsgDialog="showMsgDialog"
+    />
   </v-container>
 </template>
 
@@ -56,6 +65,7 @@
     components: {
       FilterSearch: () => import('@/components/invoice/FilterSearch'),
       // UserForm: () => import('@/components/user/UserForm'),
+      InvoiceDetailForm: () => import('@/components/invoice/InvoiceDetailForm'),
     },
     data () {
       return {
@@ -143,6 +153,8 @@
         totalInvoiceData: 0,
         loading: true,
         options: {},
+
+        detail: null,
       }
     },
 
@@ -235,6 +247,12 @@
       editItem (value) {
         value.act = 'update'
         this.invoiceData = value
+      },
+      rowClick (pItem) {
+        this.detail = pItem
+        setTimeout(() => {
+          document.getElementById('invoiceDetailForm').click()
+        }, 300)
       },
 
     },
