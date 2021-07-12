@@ -78,7 +78,7 @@
       <div />
     </v-list>
 
-    <template v-slot:append>
+    <!-- <template v-slot:append>
       <base-item
         :item="{
           title: $t('upgrade'),
@@ -86,7 +86,7 @@
           to: '/upgrade',
         }"
       />
-    </template>
+    </template> -->
   </v-navigation-drawer>
 </template>
 
@@ -158,7 +158,7 @@
         return {
           avatar: true,
           // title: this.$t('avatar'),
-          title: 'SanQua FAT Util',
+          title: 'SanQua FAT Apps',
         }
       },
     },
