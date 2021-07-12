@@ -49,6 +49,7 @@
                   :rules="[rules.required]"
                   :error="error"
                   @click:append="hidePassword = !hidePassword"
+                  @keyup.enter="login"
                 />
               </v-form>
             </v-card-text>

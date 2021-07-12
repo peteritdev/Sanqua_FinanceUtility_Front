@@ -359,7 +359,7 @@
             'Nama PT': this.selectedItem[i].company_name,
             Vendor: this.selectedItem[i].vendor_name,
             Total: this.selectedItem[i].total,
-            'Status Send Treasury': this.selectedItem[i].has_sent_to_treasury,
+            'Status Send Treasury': this.selectedItem[i].has_sent_to_treasury === 1 ? 'Sent' : 'pending',
           }
           arrData.push(param)
         }
