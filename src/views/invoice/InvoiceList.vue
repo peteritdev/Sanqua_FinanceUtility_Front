@@ -116,12 +116,12 @@
             align: 'center',
             sortable: true,
           },
-          // {
-          //   text: 'Potongan',
-          //   value: 'deduction',
-          //   align: 'right',
-          //   sortable: true,
-          // },
+          {
+            text: 'Potongan',
+            value: 'deduction',
+            align: 'right',
+            sortable: true,
+          },
           // {
           //   text: 'Sisa Hutang',
           //   value: 'debt_value',
@@ -137,6 +137,12 @@
           {
             text: 'Company Name',
             value: 'company.name',
+            align: 'right',
+            sortable: true,
+          },
+          {
+            text: 'Due Date',
+            value: 'invoice_due_date',
             align: 'right',
             sortable: true,
           },
