@@ -137,6 +137,7 @@
                   v-model="selectedInvoice.debt_value"
                   label="Hutang"
                   readonly
+                  :rules="debtRules"
                 />
               </v-col>
             </v-row>
@@ -212,6 +213,7 @@
         },
         loading: false,
         descRules: [],
+        debtRules: [],
       }
     },
 
@@ -246,6 +248,7 @@
       },
       onSubmitDetail() {
         this.descRules = [v => (v || '').length <= 20 || 'Max 20 character']
+        this.debtRules = [v => v >= 0 || "Can't be minus"]
         const self = this
         setTimeout(function () {
           if (self.$refs.entryForm.validate()) {

@@ -360,7 +360,7 @@
             'Nama PT': this.selectedItem[i].company_name,
             Vendor: this.selectedItem[i].vendor_name,
             Total: this.selectedItem[i].total,
-            'Status Treasury': this.selectedItem[i].has_sent_to_treasury === 1 ? 'Sent' : 'pending',
+            'Status Treasury': this.selectedItem[i].has_sent_to_treasury === 1 ? 'Sent' : 'Pending',
             'Tgl. Kirim': this.selectedItem[i].sent_at,
           }
           arrData.push(param)
