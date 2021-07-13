@@ -289,6 +289,41 @@
           description: '',
         }
       },
+
+      // price (val) {
+      //   console.log(val)
+      //   if (val !== null || val !== undefined) {
+      //     const reverse = val.toString()
+
+      //     if (reverse.lastIndexOf('.') === -1) {
+      //       const beforeComa1 = reverse
+      //         .split('')
+      //         .reverse()
+      //         .join('')
+      //       var ribuan1 = beforeComa1.match(/\d{1,3}/g)
+      //       const result1 = ribuan1
+      //         .join(',')
+      //         .split('')
+      //         .reverse()
+      //         .join('')
+      //       return result1
+      //     } else {
+      //       const beforeComa2 = reverse
+      //         .slice(0, reverse.indexOf('.'))
+      //         .split('')
+      //         .reverse()
+      //         .join('')
+      //       var ribuan2 = beforeComa2.match(/\d{1,3}/g)
+      //       const result2 = ribuan2
+      //         .join(',')
+      //         .split('')
+      //         .reverse()
+      //         .join('')
+      //       const afterComa = reverse.slice(reverse.lastIndexOf('.') + 1)
+      //       return result2 + '.' + afterComa
+      //     }
+      //   }
+      // },
     },
   }
 </script>
