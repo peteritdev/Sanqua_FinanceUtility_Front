@@ -11,6 +11,10 @@ class AuthService {
       .post(API_URL + '/user/login', {
         email: user.email,
         password: user.password,
+      }, {
+        headers: {
+          'x-application-id': '17',
+        },
       })
       .then(response => {
         console.log(response)
